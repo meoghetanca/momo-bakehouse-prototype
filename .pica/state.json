@@ -1,0 +1,53 @@
+{
+  "project": "momo-bakehouse",
+  "figmaInScope": true,
+  "delivered": false,
+  "viewports": [
+    {
+      "name": "desktop",
+      "w": 1440,
+      "h": 900,
+      "idiom": "desktop web, no device chrome",
+      "pointer": true,
+      "breakpoints": [1024],
+      "chrome": [
+        { "name": "top-nav", "required": true, "pinH": "STRETCH", "pinV": "MIN" }
+      ],
+      "grid": { "columns": 12, "gutter": 24, "margin": 40, "maxContent": 1200 }
+    },
+    {
+      "name": "mobile",
+      "w": 375,
+      "h": 812,
+      "idiom": "mobile web, no device chrome",
+      "pointer": false,
+      "breakpoints": [],
+      "chrome": [
+        { "name": "top-nav", "required": true, "pinH": "STRETCH", "pinV": "MIN" }
+      ],
+      "grid": { "columns": 4, "gutter": 16, "margin": 20 }
+    }
+  ],
+  "workPackages": {
+    "landing": {
+      "screens": ["home", "menu", "story", "events", "visit"],
+      "viewports": ["desktop", "mobile"],
+      "htmlApproved": true,
+      "approvedAt": "2026-09-03T15:30:00Z",
+      "ported": true,
+      "portedAt": "2026-09-04T01:45:00Z"
+    }
+  },
+  "flows": [
+    {
+      "app": "momo",
+      "entry": "app-momo.html",
+      "home": "hero"
+    }
+  ],
+  "exclusions": [],
+  "deviations": [],
+  "rawValueExemptions": [],
+  "copyRules": [],
+  "dataOwnership": []
+}

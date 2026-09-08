@@ -1,0 +1,2714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Momo Bakehouse — Handmade Cakes, Pastries & Bread in Saigon</title>
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    /* ===== Page Base ===== */
+    body {
+      background: var(--color-white);
+      scroll-behavior: smooth;
+    }
+
+    /* ===== Navigation ===== */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 150;
+      background: var(--color-white);
+      border-bottom: 1px solid var(--color-brown-100);
+      padding: 12px 32px;
+    }
+
+    .nav__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav__logo {
+      font-family: var(--font-display);
+      font-size: 22px;
+      color: var(--color-brown-900);
+      text-decoration: none;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .nav__links {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+    }
+
+    .nav__link {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-brown-600);
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav__link:hover {
+      color: var(--color-brown-900);
+      background: var(--color-yellow-100);
+    }
+
+    .nav__link.active {
+      background: var(--color-yellow-200);
+      color: var(--color-brown-900);
+    }
+
+    .nav__order {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-white);
+      background: var(--color-brown-900);
+      padding: 10px 24px;
+      border-radius: var(--radius-pill);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .nav__order:hover {
+      background: var(--color-brown-800);
+    }
+
+    /* ===== Skip Link ===== */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 16px;
+      background: var(--color-brown-900);
+      color: var(--color-white);
+      padding: 8px 16px;
+      border-radius: var(--radius-md);
+      font-family: var(--font-body);
+      font-size: 14px;
+      text-decoration: none;
+      z-index: 999;
+      transition: top 0.2s;
+    }
+    .skip-link:focus {
+      top: 8px;
+    }
+
+    /* ===== Screen Containers with Transitions ===== */
+    .screen {
+      display: none;
+      animation: screenFadeIn 0.35s ease-out;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes screenFadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== Scroll to Top ===== */
+    /* ===== Momo AI Floating Button ===== */
+    .momo-fab {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 500;
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      box-shadow: none;
+      padding: 0;
+      overflow: visible;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+      animation: momo-fab-pulse 3s ease-in-out infinite;
+    }
+    .momo-fab:hover {
+      transform: scale(1.15);
+      box-shadow: none;
+      animation: none;
+      filter: drop-shadow(0 6px 20px rgba(255, 140, 80, 0.5));
+    }
+    .momo-fab.hidden { display: none; }
+    .momo-fab img {
+      width: 76px;
+      height: 76px;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    /* Sparkle stars */
+    .momo-fab__sparkle {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      pointer-events: none;
+    }
+    .momo-fab__sparkle svg { width: 100%; height: 100%; }
+    .momo-fab__sparkle--1 { top: -4px; right: 2px; width: 16px; height: 16px; animation: momo-sparkle1 2.4s ease-in-out infinite; }
+    .momo-fab__sparkle--2 { top: 10px; left: -6px; width: 11px; height: 11px; animation: momo-sparkle2 2.8s ease-in-out 0.6s infinite; }
+    .momo-fab__sparkle--3 { bottom: 6px; right: -4px; width: 10px; height: 10px; animation: momo-sparkle3 2.2s ease-in-out 1.2s infinite; }
+    .momo-fab__sparkle--4 { bottom: -2px; left: 8px; width: 8px; height: 8px; animation: momo-sparkle1 3s ease-in-out 0.3s infinite; }
+    .momo-fab__sparkle--5 { top: 2px; left: 14px; width: 7px; height: 7px; animation: momo-sparkle2 2.6s ease-in-out 1.8s infinite; }
+
+    @keyframes momo-sparkle1 {
+      0%, 100% { opacity: 0.3; transform: scale(0.6) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.2) rotate(25deg); }
+    }
+    @keyframes momo-sparkle2 {
+      0%, 100% { opacity: 0.2; transform: scale(0.5) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.3) rotate(-20deg); }
+    }
+    @keyframes momo-sparkle3 {
+      0%, 100% { opacity: 0.4; transform: scale(0.7) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.1) rotate(30deg); }
+    }
+    @keyframes momo-fab-pulse {
+      0%, 100% { filter: drop-shadow(0 4px 12px rgba(255, 140, 80, 0.3)); }
+      50% { filter: drop-shadow(0 4px 20px rgba(255, 140, 80, 0.5)); }
+    }
+
+    /* ===== Momo AI Chat Panel ===== */
+    .momo-popup-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 600;
+      background: rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 20px 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .momo-popup-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .momo-chat {
+      background: #faf8f5;
+      border-radius: 24px;
+      width: 400px;
+      height: 620px;
+      max-height: calc(100vh - 48px);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transform: translateY(30px) scale(0.92);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 12px 48px rgba(80, 50, 30, 0.15), 0 0 0 1px rgba(0,0,0,0.04);
+      overflow: hidden;
+    }
+    .momo-popup-overlay.open .momo-chat {
+      transform: translateY(0) scale(1);
+    }
+
+    /* Header — gradient warm bar */
+    .momo-chat__header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, #f9e8d9 0%, #fce4cf 100%);
+      flex-shrink: 0;
+    }
+    .momo-chat__avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      object-fit: contain;
+      flex-shrink: 0;
+      background: rgba(255,255,255,0.6);
+      padding: 2px;
+    }
+    .momo-chat__header-info { flex: 1; }
+    .momo-chat__header-name {
+      font-family: var(--font-display);
+      font-size: 15px;
+      color: var(--color-brown-900);
+      line-height: 1.2;
+    }
+    .momo-chat__header-status {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      color: #4caf50;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .momo-chat__header-status::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4caf50;
+      flex-shrink: 0;
+      animation: momo-online-pulse 2s ease-in-out infinite;
+    }
+    @keyframes momo-online-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    .momo-chat__close {
+      width: 30px;
+      height: 30px;
+      border: none;
+      background: rgba(255,255,255,0.5);
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-brown-600);
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+    .momo-chat__close:hover {
+      background: rgba(255,255,255,0.8);
+      color: var(--color-brown-900);
+    }
+
+    /* Messages area */
+    .momo-chat__messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      background: #faf8f5;
+    }
+    .momo-chat__messages::-webkit-scrollbar { width: 3px; }
+    .momo-chat__messages::-webkit-scrollbar-track { background: transparent; }
+    .momo-chat__messages::-webkit-scrollbar-thumb { background: var(--color-brown-200); border-radius: 3px; }
+
+    /* Welcome state */
+    .momo-chat__welcome {
+      text-align: center;
+      padding: 24px 12px 12px;
+    }
+    .momo-chat__welcome-title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--color-brown-900);
+      margin-bottom: 6px;
+    }
+    .momo-chat__welcome-sub {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--color-brown-400);
+      margin-bottom: 0;
+      line-height: 1.6;
+    }
+
+    /* Suggestion chips */
+    .momo-chat__suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      padding: 8px 4px 0;
+    }
+    .momo-chip {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-brown-800);
+      background: white;
+      border: 1px solid rgba(0,0,0,0.08);
+      padding: 8px 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .momo-chip:hover {
+      background: #fff7ef;
+      border-color: rgba(255, 153, 102, 0.3);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 12px rgba(255, 140, 80, 0.12);
+    }
+
+    /* Message bubbles */
+    .momo-msg {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+      animation: momoMsgIn 0.35s ease-out;
+    }
+    .momo-msg--user {
+      flex-direction: row-reverse;
+    }
+    .momo-msg__avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .momo-msg--user .momo-msg__avatar {
+      display: none;
+    }
+    .momo-msg__bubble {
+      font-family: var(--font-body);
+      font-size: 13.5px;
+      line-height: 1.6;
+      padding: 10px 14px;
+      max-width: 82%;
+      word-wrap: break-word;
+    }
+    .momo-msg--bot .momo-msg__bubble {
+      background: white;
+      color: var(--color-brown-900);
+      border-radius: 4px 16px 16px 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .momo-msg--user .momo-msg__bubble {
+      background: linear-gradient(135deg, #ff9966, #e8825c);
+      color: white;
+      border-radius: 16px 16px 4px 16px;
+    }
+    @keyframes momoMsgIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Typing indicator */
+    .momo-typing {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+      animation: momoMsgIn 0.3s ease-out;
+    }
+    .momo-typing__dots {
+      background: white;
+      border-radius: 4px 16px 16px 16px;
+      padding: 12px 18px;
+      display: flex;
+      gap: 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .momo-typing__dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-brown-300);
+      animation: momoTypingBounce 1.2s ease-in-out infinite;
+    }
+    .momo-typing__dot:nth-child(2) { animation-delay: 0.15s; }
+    .momo-typing__dot:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes momoTypingBounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
+      30% { transform: translateY(-5px); opacity: 1; }
+    }
+
+    /* Input bar */
+    .momo-chat__input-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 14px;
+      background: white;
+      border-top: 1px solid rgba(0,0,0,0.05);
+      flex-shrink: 0;
+    }
+    .momo-chat__input {
+      flex: 1;
+      font-family: var(--font-body);
+      font-size: 13.5px;
+      padding: 10px 16px;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 14px;
+      background: #faf8f5;
+      color: var(--color-brown-900);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .momo-chat__input:focus {
+      border-color: rgba(255, 153, 102, 0.4);
+      box-shadow: 0 0 0 3px rgba(255, 153, 102, 0.1);
+    }
+    .momo-chat__input::placeholder {
+      color: var(--color-brown-300);
+    }
+    .momo-chat__send {
+      width: 38px;
+      height: 38px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #ff9966, #e8825c);
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .momo-chat__send:hover {
+      transform: scale(1.06);
+      box-shadow: 0 4px 14px rgba(255, 140, 80, 0.35);
+    }
+    .momo-chat__send:active {
+      transform: scale(0.96);
+    }
+    .momo-chat__send:disabled {
+      opacity: 0.35;
+      cursor: default;
+      transform: none;
+      box-shadow: none;
+    }
+    .momo-chat__send svg {
+      width: 17px;
+      height: 17px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .momo-chat__powered {
+      text-align: center;
+      padding: 5px;
+      font-family: var(--font-body);
+      font-size: 10px;
+      color: var(--color-brown-300);
+      background: white;
+      flex-shrink: 0;
+      letter-spacing: 0.02em;
+    }
+
+    .scroll-top {
+      position: fixed;
+      bottom: 132px;
+      right: 36px;
+      z-index: 300;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--color-brown-900);
+      color: var(--color-white);
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      line-height: 1;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.25s, transform 0.25s, background 0.2s;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .scroll-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .scroll-top:hover {
+      background: var(--color-brown-800);
+    }
+    .scroll-top svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      fill: none;
+    }
+
+    /* ===== Image Placeholders ===== */
+    .hero__img,
+    .sig-card__img,
+    .menu-tile__img,
+    .story__hero-img,
+    .event-post__img,
+    .visit__hero-img {
+      background: var(--color-brown-100);
+    }
+
+    /* ===== Event Filter Tabs ===== */
+    .event-filters {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .event-filter-btn {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 20px;
+      border-radius: var(--radius-pill);
+      border: 1.5px solid var(--color-brown-200);
+      background: transparent;
+      color: var(--color-brown-600);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .event-filter-btn:hover {
+      border-color: var(--color-brown-400);
+      color: var(--color-brown-900);
+    }
+    .event-filter-btn.active {
+      background: var(--color-brown-900);
+      color: var(--color-white);
+      border-color: var(--color-brown-900);
+    }
+
+    .event-post {
+      transition: opacity 0.25s ease;
+    }
+    .event-post.hidden {
+      display: none;
+    }
+
+    /* ===== Contact Form ===== */
+    .contact-form {
+      background: var(--color-cream);
+      border-radius: var(--radius-xl);
+      padding: 40px 32px;
+      margin-top: 40px;
+    }
+    .contact-form__title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--color-brown-900);
+      margin-bottom: 8px;
+    }
+    .contact-form__desc {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--color-brown-600);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .contact-form__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .contact-form__field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .contact-form__field--full {
+      grid-column: 1 / -1;
+    }
+    .contact-form__label {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-brown-900);
+    }
+    .contact-form__input,
+    .contact-form__textarea {
+      font-family: var(--font-body);
+      font-size: 14px;
+      padding: 10px 14px;
+      border: 1.5px solid var(--color-brown-200);
+      border-radius: var(--radius-md);
+      background: var(--color-white);
+      color: var(--color-brown-900);
+      transition: border-color 0.15s;
+      outline: none;
+    }
+    .contact-form__input:focus,
+    .contact-form__textarea:focus {
+      border-color: var(--color-brown-600);
+    }
+    .contact-form__textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .contact-form__submit {
+      grid-column: 1 / -1;
+      margin-top: 8px;
+    }
+
+    /* ===== Modal Overlay ===== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      padding: 24px;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal {
+      background: var(--color-white);
+      border-radius: var(--radius-xl);
+      width: 100%;
+      max-width: 620px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      transform: translateY(16px) scale(0.97);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.25);
+    }
+    .modal-overlay.open .modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal__close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      border: none;
+      background: var(--color-cream);
+      border-radius: 50%;
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-brown-600);
+      transition: background 0.15s, color 0.15s;
+      z-index: 2;
+    }
+    .modal__close:hover {
+      background: var(--color-brown-100);
+      color: var(--color-brown-900);
+    }
+
+    .modal__body {
+      padding: 40px 36px;
+    }
+
+    .modal__tag {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-yellow-700);
+      margin-bottom: 8px;
+    }
+
+    .modal__title {
+      font-family: var(--font-display);
+      font-size: 32px;
+      color: var(--color-brown-900);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .modal__desc {
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--color-brown-600);
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    /* Order Form inside modal */
+    .order-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .order-form__field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .order-form__field--full {
+      grid-column: 1 / -1;
+    }
+    .order-form__label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-brown-900);
+    }
+    .order-form__label .req {
+      color: var(--color-yellow-700);
+    }
+    .order-form__input,
+    .order-form__select,
+    .order-form__textarea {
+      font-family: var(--font-body);
+      font-size: 15px;
+      padding: 10px 0;
+      border: none;
+      border-bottom: 1.5px solid var(--color-brown-200);
+      background: transparent;
+      color: var(--color-brown-900);
+      outline: none;
+      transition: border-color 0.15s;
+      border-radius: 0;
+      -webkit-appearance: none;
+    }
+    .order-form__input:focus,
+    .order-form__select:focus,
+    .order-form__textarea:focus {
+      border-bottom-color: var(--color-brown-900);
+    }
+    .order-form__input::placeholder,
+    .order-form__textarea::placeholder {
+      color: var(--color-brown-300);
+    }
+    .order-form__select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 4px center;
+      padding-right: 24px;
+    }
+    .order-form__textarea {
+      resize: vertical;
+      min-height: 60px;
+      border: 1.5px solid var(--color-brown-200);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      margin-top: 4px;
+    }
+    .order-form__submit {
+      grid-column: 1 / -1;
+      margin-top: 8px;
+    }
+    .order-form__submit .btn-dark {
+      width: 100%;
+      justify-content: center;
+      padding: 16px 32px;
+      font-size: 15px;
+    }
+
+    /* Product Detail Modal */
+    .modal--product {
+      max-width: 520px;
+    }
+    .modal--product .modal__body {
+      padding: 0;
+    }
+    .product-modal__img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+      background: var(--color-brown-100);
+    }
+    .product-modal__content {
+      padding: 28px 32px 32px;
+    }
+    .product-modal__badge {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 13px;
+      color: var(--color-yellow-700);
+      margin-bottom: 4px;
+    }
+    .product-modal__name {
+      font-family: var(--font-display);
+      font-size: 28px;
+      color: var(--color-brown-900);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .product-modal__desc {
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--color-brown-600);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .product-modal__price {
+      font-family: var(--font-body);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--color-brown-900);
+      margin-bottom: 20px;
+    }
+    .product-modal__actions {
+      display: flex;
+      gap: 12px;
+    }
+    .product-modal__actions .btn-dark {
+      flex: 1;
+      justify-content: center;
+    }
+    .product-modal__actions .btn-outline {
+      flex: 1;
+      justify-content: center;
+    }
+
+    /* ===== Story Split Layout ===== */
+    .story__split {
+      display: grid;
+      grid-template-columns: 2fr 3fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .story__sidebar {
+      position: sticky;
+      top: 80px;
+      align-self: start;
+    }
+    .story__sidebar-img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      border-radius: var(--radius-xl);
+      margin-bottom: 24px;
+    }
+    .story__quote {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--color-brown-900);
+      border-left: 4px solid var(--color-yellow-700);
+      padding: 20px 24px;
+      background: var(--color-yellow-100);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    }
+    .story__content {
+      /* right column */
+    }
+
+    /* ===== Event Card Grid ===== */
+    .event-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .event-card {
+      background: var(--color-white);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1px solid var(--color-brown-100);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .event-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+    .event-card.hidden {
+      display: none;
+    }
+    .event-card__img {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+    }
+    .event-card__body {
+      padding: 20px;
+    }
+    .event-card__pill {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 12px;
+    }
+    .event-card__pill--workshop {
+      background: var(--color-yellow-100);
+      color: var(--color-yellow-700);
+    }
+    .event-card__pill--masterclass {
+      background: var(--color-brown-100);
+      color: var(--color-brown-900);
+    }
+    .event-card__pill--community {
+      background: var(--color-cream);
+      color: var(--color-brown-600);
+    }
+    .event-card__title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      color: var(--color-brown-900);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .event-card__meta {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--color-brown-400);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .event-card__cta {
+      display: inline-flex;
+    }
+
+    /* ===== Visit Split Map ===== */
+    .visit__split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 520px;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1px solid var(--color-brown-100);
+      margin-bottom: 40px;
+      background: var(--color-brown-100);
+    }
+    .visit__info {
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: var(--color-cream);
+    }
+    .visit__info-title {
+      font-family: var(--font-display);
+      font-size: 32px;
+      color: var(--color-brown-900);
+      margin-bottom: 4px;
+    }
+    .visit__info-subtitle {
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--color-brown-400);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .visit__info-photo {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      margin-bottom: 16px;
+    }
+    .visit__info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+    .visit__info-item {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--color-brown-900);
+      line-height: 1.5;
+    }
+    .visit__info-item strong {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-yellow-600);
+      margin-bottom: 2px;
+    }
+    .visit__info .btn-dark {
+      margin-top: auto;
+      align-self: flex-start;
+    }
+    .visit__map-col {
+      display: flex;
+      background: var(--color-brown-200);
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--color-brown-400);
+    }
+    .visit__map-col iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    .visit__map-placeholder {
+      display: none;
+      text-align: center;
+      padding: 40px;
+    }
+    .visit__map-placeholder svg {
+      width: 48px;
+      height: 48px;
+      stroke: var(--color-brown-300);
+      fill: none;
+      stroke-width: 1.5;
+      margin-bottom: 12px;
+    }
+
+    /* ===== Shared Section Styles ===== */
+    .section {
+      padding: 64px 0;
+    }
+
+    .section__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .section__title {
+      font-family: var(--font-display);
+      font-size: 40px;
+      line-height: 1.2;
+      color: var(--color-brown-900);
+    }
+
+    .section__subtitle {
+      font-family: var(--font-body);
+      font-size: 18px;
+      color: var(--color-brown-400);
+      margin-top: 8px;
+    }
+
+    /* ===== HOME: Hero ===== */
+    .hero {
+      background: var(--color-warm);
+      padding: 80px 0;
+    }
+
+    .hero__grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero__tag {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-yellow-700);
+      margin-bottom: 16px;
+    }
+
+    .hero__title {
+      font-family: var(--font-display);
+      font-size: 48px;
+      line-height: 1.15;
+      color: var(--color-brown-900);
+      margin-bottom: 20px;
+    }
+
+    .hero__desc {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--color-brown-600);
+      margin-bottom: 32px;
+      max-width: 480px;
+    }
+
+    .hero__buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hero__img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: var(--radius-xl);
+    }
+
+    /* Buttons */
+    .btn-dark {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-white);
+      background: var(--color-brown-900);
+      padding: 14px 32px;
+      border-radius: var(--radius-pill);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: background 0.2s;
+    }
+
+    .btn-dark:hover { background: var(--color-brown-800); }
+
+    .btn-outline {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-brown-900);
+      background: transparent;
+      padding: 14px 32px;
+      border-radius: var(--radius-pill);
+      border: 2px solid var(--color-brown-900);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-outline:hover {
+      background: var(--color-brown-900);
+      color: var(--color-white);
+    }
+
+    /* ===== HOME: Signatures ===== */
+    .signatures {
+      background: var(--color-white);
+      padding: 64px 0;
+    }
+
+    .signatures__header {
+      max-width: 1200px;
+      margin: 0 auto 32px;
+      padding: 0 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .signatures__heading {
+      font-family: var(--font-display);
+      font-size: 32px;
+      color: var(--color-brown-900);
+    }
+
+    .signatures__link {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-yellow-700);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .signatures__link:hover { text-decoration: underline; }
+
+    .signatures__grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .sig-card {
+      background: var(--color-cream);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+
+    .sig-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+
+    .sig-card__img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+
+    .sig-card__body {
+      padding: 20px;
+    }
+
+    .sig-card__name {
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--color-brown-900);
+      margin-bottom: 4px;
+    }
+
+    .sig-card__sig {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 13px;
+      color: var(--color-yellow-700);
+      margin-bottom: 8px;
+    }
+
+    .sig-card__price {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-brown-600);
+    }
+
+    /* ===== HOME: CTA ===== */
+    .cta {
+      background: var(--color-yellow-100);
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .cta__title {
+      font-family: var(--font-display);
+      font-size: 36px;
+      color: var(--color-brown-900);
+      margin-bottom: 12px;
+    }
+
+    .cta__desc {
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: var(--color-brown-600);
+      max-width: 480px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+
+    /* ===== MENU ===== */
+    .menu-section {
+      padding: 64px 0;
+    }
+
+    .menu-section__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .menu-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .menu-category {
+      margin-bottom: 56px;
+    }
+
+    .menu-category__name {
+      font-family: var(--font-display);
+      font-size: 28px;
+      color: var(--color-brown-900);
+      margin-bottom: 8px;
+    }
+
+    .menu-category__desc {
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--color-brown-400);
+      margin-bottom: 24px;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .menu-tile {
+      background: var(--color-cream);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .menu-tile:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+
+    .menu-tile__img {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+    }
+
+    .menu-tile__body {
+      padding: 20px;
+    }
+
+    .menu-tile__name {
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--color-brown-900);
+      margin-bottom: 4px;
+    }
+
+    .menu-tile__sig {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 13px;
+      color: var(--color-yellow-700);
+      margin-bottom: 8px;
+    }
+
+    .menu-tile__desc {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--color-brown-400);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .menu-tile__price {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-brown-600);
+    }
+
+    /* ===== OUR STORY ===== */
+    .story-section {
+      padding: 64px 0;
+    }
+
+    .story-section__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .story__hero-img {
+      width: 100%;
+      aspect-ratio: 2 / 1;
+      object-fit: cover;
+      border-radius: var(--radius-xl);
+      margin-bottom: 48px;
+    }
+
+    .story__title {
+      font-family: var(--font-display);
+      font-size: 40px;
+      color: var(--color-brown-900);
+      margin-bottom: 24px;
+    }
+
+    .story__text {
+      font-family: var(--font-body);
+      font-size: 16px;
+      color: var(--color-brown-600);
+      line-height: 1.75;
+      margin-bottom: 20px;
+      max-width: 800px;
+    }
+
+    .story__divider {
+      border: none;
+      border-top: 1px solid var(--color-brown-200);
+      margin: 48px 0;
+    }
+
+    .story__values {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .value-card {
+      background: var(--color-yellow-100);
+      border-radius: var(--radius-xl);
+      padding: 40px 24px;
+      text-align: center;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .value-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px);
+    }
+
+    .value-card__title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--color-brown-900);
+      margin-bottom: 8px;
+    }
+
+    .value-card__desc {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--color-brown-600);
+      line-height: 1.5;
+    }
+
+    /* ===== EVENTS ===== */
+    .events-section {
+      padding: 64px 0;
+    }
+
+    .events-section__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .events-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .event-post {
+      margin-bottom: 24px;
+    }
+
+    .event-post__img {
+      width: 100%;
+      aspect-ratio: 2 / 1;
+      object-fit: cover;
+      border-radius: var(--radius-xl);
+      margin-bottom: 24px;
+    }
+
+    .event-post__label {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-yellow-600);
+      margin-bottom: 8px;
+    }
+
+    .event-post__title {
+      font-family: var(--font-display);
+      font-size: 28px;
+      color: var(--color-brown-900);
+      margin-bottom: 12px;
+    }
+
+    .event-post__excerpt {
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--color-brown-600);
+      line-height: 1.6;
+      margin-bottom: 20px;
+      max-width: 700px;
+    }
+
+    .event-post__details {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--color-brown-600);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .event-post__details strong {
+      color: var(--color-brown-900);
+      font-weight: 600;
+    }
+
+    .event-divider {
+      border: none;
+      border-top: 1px solid var(--color-brown-200);
+      margin: 48px 0;
+    }
+
+    /* ===== VISIT US ===== */
+    .visit-section {
+      padding: 64px 0;
+    }
+
+    .visit-section__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .visit-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .visit__hero-img {
+      width: 100%;
+      aspect-ratio: 2 / 1;
+      object-fit: cover;
+      border-radius: var(--radius-xl);
+      margin-bottom: 48px;
+    }
+
+    .visit__details {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .detail-card {
+      background: var(--color-cream);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+    }
+
+    .detail-card__label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-yellow-600);
+      margin-bottom: 8px;
+    }
+
+    .detail-card__value {
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--color-brown-900);
+      line-height: 1.6;
+    }
+
+    .visit__cta {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .visit__map {
+      width: 100%;
+      height: 400px;
+      border: none;
+      border-radius: var(--radius-xl);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--color-brown-800);
+      padding: 56px 0 0;
+    }
+
+    .footer__grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+
+    .footer__brand-name {
+      font-family: var(--font-display);
+      font-size: 20px;
+      color: var(--color-cream);
+      margin-bottom: 12px;
+    }
+
+    .footer__brand-desc {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--color-brown-300);
+      line-height: 1.6;
+    }
+
+    .footer__heading {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-cream);
+      margin-bottom: 16px;
+    }
+
+    .footer__list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer__link {
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--color-brown-300);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .footer__link:hover { color: var(--color-white); }
+
+    .footer__bottom {
+      max-width: 1200px;
+      margin: 40px auto 0;
+      padding: 20px 32px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer__copy {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--color-brown-300);
+    }
+
+    .footer__legal {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer__legal a {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--color-brown-300);
+      text-decoration: none;
+    }
+
+    .footer__legal a:hover { color: var(--color-white); }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Nav -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a class="nav__logo" data-nav="home">Momo Bakehouse</a>
+      <ul class="nav__links">
+        <li><a class="nav__link active" data-nav="home" aria-current="page">Home</a></li>
+        <li><a class="nav__link" data-nav="menu">Menu</a></li>
+        <li><a class="nav__link" data-nav="story">Our Story</a></li>
+        <li><a class="nav__link" data-nav="events">Events</a></li>
+        <li><a class="nav__link" data-nav="visit">Visit Us</a></li>
+      </ul>
+      <a class="nav__order" href="#" data-open-order>Order Online</a>
+    </div>
+  </nav>
+
+  <!-- Scroll to Top -->
+  <button class="scroll-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+  </button>
+
+  <!-- HOME -->
+  <div class="screen active" data-screen="home" id="main">
+    <section class="hero">
+      <div class="hero__grid">
+        <div>
+          <div class="hero__tag">Welcome to Momo Bakehouse</div>
+          <h1 class="hero__title">A Little Something Sweet, Made with Love.</h1>
+          <p class="hero__desc">From our ovens in District 3, Saigon, we bake every loaf, cake, and pastry by hand, using real butter, seasonal fruits, and recipes we have been perfecting since day one. Come in for a coffee, leave with something sweet.</p>
+          <div class="hero__buttons">
+            <a class="btn-dark" href="#" data-open-order>Browse Our Cakes</a>
+            <a class="btn-outline" data-nav="menu">See Our Menu</a>
+          </div>
+        </div>
+        <div>
+          <img class="hero__img" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&h=600&fit=crop" alt="Fresh baked bread">
+        </div>
+      </div>
+    </section>
+
+    <section class="signatures">
+      <div class="signatures__header">
+        <h2 class="signatures__heading">Momo Signatures</h2>
+        <a class="signatures__link" data-nav="menu">View the full menu</a>
+      </div>
+      <div class="signatures__grid">
+        <a class="sig-card" href="#" data-open-product>
+          <img class="sig-card__img" src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&h=450&fit=crop" alt="Chocolate Lava Cake">
+          <div class="sig-card__body">
+            <div class="sig-card__name">Chocolate Lava Cake</div>
+            <div class="sig-card__sig">Momo Signature</div>
+            <div class="sig-card__price">185,000 VND</div>
+          </div>
+        </a>
+        <a class="sig-card" href="#" data-open-product>
+          <img class="sig-card__img" src="https://images.unsplash.com/photo-1530610476181-d83430b64dcd?w=600&h=450&fit=crop" alt="Butter Croissant">
+          <div class="sig-card__body">
+            <div class="sig-card__name">Butter Croissant</div>
+            <div class="sig-card__sig">Momo Signature</div>
+            <div class="sig-card__price">55,000 VND</div>
+          </div>
+        </a>
+        <a class="sig-card" href="#" data-open-product>
+          <img class="sig-card__img" src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600&h=450&fit=crop" alt="Sourdough Loaf">
+          <div class="sig-card__body">
+            <div class="sig-card__name">Sourdough Loaf</div>
+            <div class="sig-card__sig">Momo Signature</div>
+            <div class="sig-card__price">95,000 VND</div>
+          </div>
+        </a>
+        <a class="sig-card" href="#" data-open-product>
+          <img class="sig-card__img" src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=600&h=450&fit=crop" alt="Lemon Tart">
+          <div class="sig-card__body">
+            <div class="sig-card__name">Lemon Tart</div>
+            <div class="sig-card__sig">Momo Signature</div>
+            <div class="sig-card__price">75,000 VND</div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="cta">
+      <h2 class="cta__title">Something sweet is waiting for you.</h2>
+      <p class="cta__desc">Whether it is a birthday cake for someone special, a box of pastries for the office, or just a quiet coffee and croissant for yourself, we would love to see you.</p>
+      <a class="btn-dark" href="#" data-open-order>Start Your Order</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">Momo Bakehouse</div>
+          <p class="footer__brand-desc">A little bakery in Saigon making handmade cakes, pastries, and bread with real ingredients and a whole lot of love.</p>
+        </div>
+        <div>
+          <div class="footer__heading">Explore</div>
+          <ul class="footer__list">
+            <li><a class="footer__link" data-nav="home">Home</a></li>
+            <li><a class="footer__link" data-nav="menu">Menu</a></li>
+            <li><a class="footer__link" data-nav="story">Our Story</a></li>
+            <li><a class="footer__link" data-nav="events">Events</a></li>
+            <li><a class="footer__link" data-nav="visit">Visit Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Order</div>
+          <ul class="footer__list">
+            <li><a class="footer__link" href="#" data-open-order>Order Online</a></li>
+            <li><a class="footer__link" href="#" data-open-order>Birthday Cakes</a></li>
+            <li><a class="footer__link" href="#" data-open-order>Pastries and Bread</a></li>
+            <li><a class="footer__link" href="#" data-open-order>Coffee and Tea</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Connect</div>
+          <ul class="footer__list">
+            <li><a class="footer__link" href="https://instagram.com/momobakehouse" target="_blank">Instagram</a></li>
+            <li><a class="footer__link" href="https://facebook.com/momobakehouse" target="_blank">Facebook</a></li>
+            <li><a class="footer__link" href="mailto:hello@momobakehouse.com">hello@momobakehouse.com</a></li>
+            <li><a class="footer__link" href="tel:+84901234567">+84 90 123 4567</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span class="footer__copy">&copy; 2026 Momo Bakehouse. All rights reserved.</span>
+        <div class="footer__legal">
+          <a href="#">Terms of Service</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- MENU -->
+  <div class="screen" data-screen="menu">
+    <div class="menu-section">
+      <div class="menu-section__container">
+        <div class="menu-header">
+          <h1 class="section__title">Our Menu</h1>
+          <p class="section__subtitle">Baked fresh daily with real butter, seasonal fruits, and a lot of care.</p>
+        </div>
+
+        <!-- Celebration Cakes -->
+        <div class="menu-category">
+          <h2 class="menu-category__name">Momo Celebration Cakes</h2>
+          <p class="menu-category__desc">Every cake is baked to order, layered by hand, and finished with seasonal fruits and flowers. Perfect for birthdays, anniversaries, or just because.</p>
+          <div class="menu-grid">
+            <div class="menu-tile" data-open-product style="cursor:pointer">
+              <img class="menu-tile__img" src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&h=400&fit=crop" alt="Chocolate Lava Cake">
+              <div class="menu-tile__body">
+                <div class="menu-tile__name">Chocolate Lava Cake</div>
+                <div class="menu-tile__sig">Momo Signature</div>
+                <p class="menu-tile__desc">Warm, molten center with a rich dark chocolate shell. Served with a scoop of vanilla bean ice cream.</p>
+                <div class="menu-tile__price">185,000 VND</div>
+              </div>
+            </div>
+            <div class="menu-tile" data-open-product style="cursor:pointer">
+              <img class="menu-tile__img" src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600&h=400&fit=crop" alt="Strawberry Cream Cake">
+              <div class="menu-tile__body">
+                <div class="menu-tile__name">Strawberry Cream Cake</div>
+                <div class="menu-tile__sig">Momo Signature</div>
+                <p class="menu-tile__desc">Light sponge layered with fresh strawberries and whipped cream. Our most popular birthday cake, loved by all ages.</p>
+                <div class="menu-tile__price">320,000 VND</div>
+              </div>
+            </div>
+            <div class="menu-tile" data-open-product style="cursor:pointer">
+              <img class="menu-tile__img" src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=600&h=400&fit=crop" alt="Classic Birthday Cake">
+              <div class="menu-tile__body">
+                <div class="menu-tile__name">Classic Birthday Cake</div>
+                <p class="menu-tile__desc">Vanilla butter cake with buttercream frosting, decorated with seasonal flowers and a personalized message.</p>
+                <div class="menu-tile__price">280,000 VND</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Little Pastry Things -->
+        <div class="menu-category">
+          <h2 class="menu-category__name">Little Pastry Things</h2>
+          <p class="menu-category__desc">Flaky, buttery, and made from scratch every morning. Best enjoyed warm with a cup of coffee.</p>
+          <div class="menu-grid">
+            <div class="menu-tile" data-open-product style="cursor:pointer">
+              <img class="menu-tile__img" src="https://images.unsplash.com/photo-1530610476181-d83430b64dcd?w=600&h=400&fit=crop" alt="Butter Croissant">
+              <div class="menu-tile__body">
+                <div class="menu-tile__name">Butter Croissant</div>
+                <div class="menu-tile__sig">Momo Signature</div>
+                <p class="menu-tile__desc">72-hour fermented dough, hand-laminated with French butter. Golden, flaky, and impossibly light.</p>
+                <div class="menu-tile__price">55,000 VND</div>
+              </div>
+            </div>
+            <div class="menu-tile" data-open-product style="cursor:pointer">
+              <img class="menu-tile__img" src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=600&h=400&fit=crop" alt="Almond Croissant">
+              <div class="menu-tile__body">
+                <div class="menu-tile__name">Almond Croissant</div>
+                <p class="menu-tile__desc">Filled with almond frangipane, topped with sliced almonds and a dusting of powdered sugar.</p>
+                <div class="menu-tile__price">65,000 VND</div>
+              </div>
+            </div>
+            <div class="menu-tile" data-open-product style="cursor:pointer">
+              <img class="menu-tile__img" src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=600&h=400&fit=crop" alt="Lemon Tart">
+              <div class="menu-tile__body">
+                <div class="menu-tile__name">Lemon Tart</div>
+                <div class="menu-tile__sig">Momo Signature</div>
+                <p class="menu-tile__desc">Tangy lemon curd in a crisp butter shell, finished with a torched Swiss meringue topping.</p>
+                <div class="menu-tile__price">75,000 VND</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- From Our Oven -->
+        <div class="menu-category">
+          <h2 class="menu-category__name">From Our Oven</h2>
+          <p class="menu-category__desc">Hearty breads and rolls baked throughout the day. Made with long fermentation and no shortcuts.</p>
+          <div class="menu-grid">
+            <div class="menu-tile" data-open-product style="cursor:pointer">
+              <img class="menu-tile__img" src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600&h=400&fit=crop" alt="Sourdough Loaf">
+              <div class="menu-tile__body">
+                <div class="menu-tile__name">Sourdough Loaf</div>
+                <div class="menu-tile__sig">Momo Signature</div>
+                <p class="menu-tile__desc">Wild yeast starter, stone-milled flour, and a 24-hour cold ferment. Crusty outside, soft and tangy inside.</p>
+                <div class="menu-tile__price">95,000 VND</div>
+              </div>
+            </div>
+            <div class="menu-tile" data-open-product style="cursor:pointer">
+              <img class="menu-tile__img" src="https://images.unsplash.com/photo-1586985289688-ca3cf47d3e6e?w=600&h=400&fit=crop" alt="Hokkaido Milk Bread">
+              <div class="menu-tile__body">
+                <div class="menu-tile__name">Hokkaido Milk Bread</div>
+                <p class="menu-tile__desc">Pillowy soft Japanese-style milk bread made with tangzhong. Perfect for sandwiches or toasting.</p>
+                <div class="menu-tile__price">75,000 VND</div>
+              </div>
+            </div>
+            <div class="menu-tile" data-open-product style="cursor:pointer">
+              <img class="menu-tile__img" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&h=400&fit=crop" alt="Cinnamon Raisin Swirl">
+              <div class="menu-tile__body">
+                <div class="menu-tile__name">Cinnamon Raisin Swirl</div>
+                <p class="menu-tile__desc">Soft enriched dough swirled with Ceylon cinnamon and plump raisins. A weekend morning favorite.</p>
+                <div class="menu-tile__price">85,000 VND</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Momo Sips -->
+        <div class="menu-category">
+          <h2 class="menu-category__name">Momo Sips</h2>
+          <p class="menu-category__desc">Specialty coffees, matcha lattes, and seasonal drinks made with care. The perfect companion to your pastry.</p>
+          <div class="menu-grid">
+            <div class="menu-tile" data-open-product style="cursor:pointer">
+              <img class="menu-tile__img" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&h=400&fit=crop" alt="House Coffee">
+              <div class="menu-tile__body">
+                <div class="menu-tile__name">House Coffee</div>
+                <p class="menu-tile__desc">Single-origin beans roasted locally, brewed as pour-over or espresso. Smooth with notes of caramel and cocoa.</p>
+                <div class="menu-tile__price">55,000 VND</div>
+              </div>
+            </div>
+            <div class="menu-tile" data-open-product style="cursor:pointer">
+              <img class="menu-tile__img" src="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?w=600&h=400&fit=crop" alt="Matcha Latte">
+              <div class="menu-tile__body">
+                <div class="menu-tile__name">Matcha Latte</div>
+                <div class="menu-tile__sig">Momo Signature</div>
+                <p class="menu-tile__desc">Ceremonial-grade Uji matcha whisked with oat milk. Earthy, creamy, and naturally sweet.</p>
+                <div class="menu-tile__price">65,000 VND</div>
+              </div>
+            </div>
+            <div class="menu-tile" data-open-product style="cursor:pointer">
+              <img class="menu-tile__img" src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600&h=400&fit=crop" alt="Cappuccino">
+              <div class="menu-tile__body">
+                <div class="menu-tile__name">Cappuccino</div>
+                <p class="menu-tile__desc">Double shot of espresso with steamed milk and a thick layer of velvety microfoam. Classic done right.</p>
+                <div class="menu-tile__price">60,000 VND</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">Momo Bakehouse</div>
+          <p class="footer__brand-desc">A little bakery in Saigon making handmade cakes, pastries, and bread with real ingredients and a whole lot of love.</p>
+        </div>
+        <div>
+          <div class="footer__heading">Explore</div>
+          <ul class="footer__list">
+            <li><a class="footer__link" data-nav="home">Home</a></li>
+            <li><a class="footer__link" data-nav="menu">Menu</a></li>
+            <li><a class="footer__link" data-nav="story">Our Story</a></li>
+            <li><a class="footer__link" data-nav="events">Events</a></li>
+            <li><a class="footer__link" data-nav="visit">Visit Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Order</div>
+          <ul class="footer__list">
+            <li><a class="footer__link" href="#" data-open-order>Order Online</a></li>
+            <li><a class="footer__link" href="#" data-open-order>Birthday Cakes</a></li>
+            <li><a class="footer__link" href="#" data-open-order>Pastries and Bread</a></li>
+            <li><a class="footer__link" href="#" data-open-order>Coffee and Tea</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Connect</div>
+          <ul class="footer__list">
+            <li><a class="footer__link" href="https://instagram.com/momobakehouse" target="_blank">Instagram</a></li>
+            <li><a class="footer__link" href="https://facebook.com/momobakehouse" target="_blank">Facebook</a></li>
+            <li><a class="footer__link" href="mailto:hello@momobakehouse.com">hello@momobakehouse.com</a></li>
+            <li><a class="footer__link" href="tel:+84901234567">+84 90 123 4567</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span class="footer__copy">&copy; 2026 Momo Bakehouse. All rights reserved.</span>
+        <div class="footer__legal">
+          <a href="#">Terms of Service</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- OUR STORY -->
+  <div class="screen" data-screen="story">
+    <div class="story-section">
+      <div class="story-section__container">
+        <div class="story__split">
+          <div class="story__sidebar">
+            <img class="story__sidebar-img" src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?w=600&h=800&fit=crop" alt="Momo Bakehouse interior">
+            <blockquote class="story__quote">"The best baked goods need good butter, fresh flour, ripe fruit, and someone who genuinely cares."</blockquote>
+          </div>
+          <div class="story__content">
+            <h1 class="story__title">Meet Momo</h1>
+
+            <p class="story__text">Momo Bakehouse started as a small home kitchen project in 2019, when our founder began baking sourdough loaves for friends and neighbors in District 3. What started as a weekend hobby quickly became a passion, and soon enough, the kitchen was too small and the orders were too many. We found a cozy shophouse on a quiet alley, set up our ovens, and opened the doors.</p>
+
+            <p class="story__text">The name "Momo" comes from the Vietnamese word for a soft, round dumpling, and we think it captures exactly what we are about: simple, comforting, lovingly made. We believe that the best baked goods do not need fancy techniques or complicated ingredients. They need good butter, fresh flour, ripe fruit, and someone who genuinely cares about getting it right.</p>
+
+            <p class="story__text">Every single item on our menu is made by hand, from scratch, every morning. Our croissants take 72 hours to make. Our sourdough starter is over four years old. Our cakes are baked to order, never sitting in a fridge waiting. We source our flour from a local mill in the Mekong Delta, our butter from a small dairy in Dalat, and our fruits from the seasonal markets around Saigon.</p>
+
+            <p class="story__text">We are still a small team. You will probably see the same faces every time you visit, and that is exactly how we like it. We know our regulars by name, we remember your usual order, and we always save the last croissant for the person who really needs it. If you have not visited us yet, we hope you will soon. The door is always open and the coffee is always fresh.</p>
+          </div>
+        </div>
+
+        <hr class="story__divider">
+
+        <div class="story__values">
+          <div class="value-card">
+            <div class="value-card__title">Handmade</div>
+            <p class="value-card__desc">Every item is shaped, folded, and finished by hand. No machines, no molds, no shortcuts.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-card__title">Fresh Daily</div>
+            <p class="value-card__desc">We bake everything from scratch every single morning. What you eat today was made today.</p>
+          </div>
+          <div class="value-card">
+            <div class="value-card__title">Made with Love</div>
+            <p class="value-card__desc">We care about every detail, from the flour we choose to the way we wrap your box.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">Momo Bakehouse</div>
+          <p class="footer__brand-desc">A little bakery in Saigon making handmade cakes, pastries, and bread with real ingredients and a whole lot of love.</p>
+        </div>
+        <div>
+          <div class="footer__heading">Explore</div>
+          <ul class="footer__list">
+            <li><a class="footer__link" data-nav="home">Home</a></li>
+            <li><a class="footer__link" data-nav="menu">Menu</a></li>
+            <li><a class="footer__link" data-nav="story">Our Story</a></li>
+            <li><a class="footer__link" data-nav="events">Events</a></li>
+            <li><a class="footer__link" data-nav="visit">Visit Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Order</div>
+          <ul class="footer__list">
+            <li><a class="footer__link" href="#" data-open-order>Order Online</a></li>
+            <li><a class="footer__link" href="#" data-open-order>Birthday Cakes</a></li>
+            <li><a class="footer__link" href="#" data-open-order>Pastries and Bread</a></li>
+            <li><a class="footer__link" href="#" data-open-order>Coffee and Tea</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Connect</div>
+          <ul class="footer__list">
+            <li><a class="footer__link" href="https://instagram.com/momobakehouse" target="_blank">Instagram</a></li>
+            <li><a class="footer__link" href="https://facebook.com/momobakehouse" target="_blank">Facebook</a></li>
+            <li><a class="footer__link" href="mailto:hello@momobakehouse.com">hello@momobakehouse.com</a></li>
+            <li><a class="footer__link" href="tel:+84901234567">+84 90 123 4567</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span class="footer__copy">&copy; 2026 Momo Bakehouse. All rights reserved.</span>
+        <div class="footer__legal">
+          <a href="#">Terms of Service</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- EVENTS -->
+  <div class="screen" data-screen="events">
+    <div class="events-section">
+      <div class="events-section__container">
+        <div class="events-header">
+          <h1 class="section__title">Come Bake With Us</h1>
+          <p class="section__subtitle">Workshops, tastings, and seasonal pop-ups at the bakehouse.</p>
+        </div>
+
+        <!-- Event Filters -->
+        <div class="event-filters">
+          <button class="event-filter-btn active" data-filter="all">All Events</button>
+          <button class="event-filter-btn" data-filter="workshop">Workshops</button>
+          <button class="event-filter-btn" data-filter="masterclass">Masterclasses</button>
+          <button class="event-filter-btn" data-filter="community">Community</button>
+        </div>
+
+        <div class="event-grid">
+          <article class="event-card" data-category="workshop">
+            <img class="event-card__img" src="https://images.unsplash.com/photo-1607478900766-efe13248b125?w=600&h=400&fit=crop" alt="Mid-Autumn Mooncake Workshop">
+            <div class="event-card__body">
+              <span class="event-card__pill event-card__pill--workshop">Workshop</span>
+              <h2 class="event-card__title">Mid-Autumn Mooncake Workshop</h2>
+              <div class="event-card__meta">Sep 14, 2026 &middot; 650,000 VND</div>
+              <a class="btn-dark event-card__cta" href="#" data-open-order>Book</a>
+            </div>
+          </article>
+
+          <article class="event-card" data-category="masterclass">
+            <img class="event-card__img" src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600&h=400&fit=crop" alt="Sourdough Bread Masterclass">
+            <div class="event-card__body">
+              <span class="event-card__pill event-card__pill--masterclass">Masterclass</span>
+              <h2 class="event-card__title">Sourdough Bread Masterclass</h2>
+              <div class="event-card__meta">Sep 21, 2026 &middot; 850,000 VND</div>
+              <a class="btn-dark event-card__cta" href="#" data-open-order>Book</a>
+            </div>
+          </article>
+
+          <article class="event-card" data-category="community">
+            <img class="event-card__img" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&h=400&fit=crop" alt="Weekend Bread Club">
+            <div class="event-card__body">
+              <span class="event-card__pill event-card__pill--community">Community</span>
+              <h2 class="event-card__title">Weekend Bread Club</h2>
+              <div class="event-card__meta">First Saturday monthly &middot; 250,000 VND</div>
+              <a class="btn-dark event-card__cta" href="#" data-open-order>Book</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">Momo Bakehouse</div>
+          <p class="footer__brand-desc">A little bakery in Saigon making handmade cakes, pastries, and bread with real ingredients and a whole lot of love.</p>
+        </div>
+        <div>
+          <div class="footer__heading">Explore</div>
+          <ul class="footer__list">
+            <li><a class="footer__link" data-nav="home">Home</a></li>
+            <li><a class="footer__link" data-nav="menu">Menu</a></li>
+            <li><a class="footer__link" data-nav="story">Our Story</a></li>
+            <li><a class="footer__link" data-nav="events">Events</a></li>
+            <li><a class="footer__link" data-nav="visit">Visit Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Order</div>
+          <ul class="footer__list">
+            <li><a class="footer__link" href="#" data-open-order>Order Online</a></li>
+            <li><a class="footer__link" href="#" data-open-order>Birthday Cakes</a></li>
+            <li><a class="footer__link" href="#" data-open-order>Pastries and Bread</a></li>
+            <li><a class="footer__link" href="#" data-open-order>Coffee and Tea</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Connect</div>
+          <ul class="footer__list">
+            <li><a class="footer__link" href="https://instagram.com/momobakehouse" target="_blank">Instagram</a></li>
+            <li><a class="footer__link" href="https://facebook.com/momobakehouse" target="_blank">Facebook</a></li>
+            <li><a class="footer__link" href="mailto:hello@momobakehouse.com">hello@momobakehouse.com</a></li>
+            <li><a class="footer__link" href="tel:+84901234567">+84 90 123 4567</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span class="footer__copy">&copy; 2026 Momo Bakehouse. All rights reserved.</span>
+        <div class="footer__legal">
+          <a href="#">Terms of Service</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- VISIT US -->
+  <div class="screen" data-screen="visit">
+    <div class="visit-section">
+      <div class="visit-section__container">
+        <div class="visit__split">
+          <div class="visit__info">
+            <h1 class="visit__info-title">Come Say Hi</h1>
+            <p class="visit__info-subtitle">We are tucked away on a quiet alley in District 3. Look for the smell of fresh bread.</p>
+            <img class="visit__info-photo" src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=600&h=340&fit=crop" alt="Momo Bakehouse cafe">
+            <div class="visit__info-list">
+              <div class="visit__info-item">
+                <strong>Address</strong>
+                45 Nguyen Dinh Chieu, Ward 6, District 3, Ho Chi Minh City
+              </div>
+              <div class="visit__info-item">
+                <strong>Hours</strong>
+                Mon-Fri: 7:00 AM - 7:00 PM &middot; Sat-Sun: 8:00 AM - 8:00 PM
+              </div>
+              <div class="visit__info-item">
+                <strong>Phone</strong>
+                <a href="tel:+84901234567" style="color:inherit;text-decoration:none;">+84 90 123 4567</a>
+              </div>
+              <div class="visit__info-item">
+                <strong>Email</strong>
+                <a href="mailto:hello@momobakehouse.com" style="color:inherit;text-decoration:none;">hello@momobakehouse.com</a>
+              </div>
+            </div>
+            <a class="btn-dark" href="https://www.google.com/maps/search/District+3+Ho+Chi+Minh+City" target="_blank">Get Directions</a>
+          </div>
+          <div class="visit__map-col">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15678!2d106.6863!3d10.7756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f1b8a711b23%3A0x648073beaf57caa3!2sDistrict%203%2C%20Ho%20Chi%20Minh%20City!5e0!3m2!1sen!2s!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="visit__map-placeholder">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <div>Google Maps</div>
+              <div style="margin-top:4px;font-size:12px;">District 3, Ho Chi Minh City</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">Momo Bakehouse</div>
+          <p class="footer__brand-desc">A little bakery in Saigon making handmade cakes, pastries, and bread with real ingredients and a whole lot of love.</p>
+        </div>
+        <div>
+          <div class="footer__heading">Explore</div>
+          <ul class="footer__list">
+            <li><a class="footer__link" data-nav="home">Home</a></li>
+            <li><a class="footer__link" data-nav="menu">Menu</a></li>
+            <li><a class="footer__link" data-nav="story">Our Story</a></li>
+            <li><a class="footer__link" data-nav="events">Events</a></li>
+            <li><a class="footer__link" data-nav="visit">Visit Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Order</div>
+          <ul class="footer__list">
+            <li><a class="footer__link" href="#" data-open-order>Order Online</a></li>
+            <li><a class="footer__link" href="#" data-open-order>Birthday Cakes</a></li>
+            <li><a class="footer__link" href="#" data-open-order>Pastries and Bread</a></li>
+            <li><a class="footer__link" href="#" data-open-order>Coffee and Tea</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__heading">Connect</div>
+          <ul class="footer__list">
+            <li><a class="footer__link" href="https://instagram.com/momobakehouse" target="_blank">Instagram</a></li>
+            <li><a class="footer__link" href="https://facebook.com/momobakehouse" target="_blank">Facebook</a></li>
+            <li><a class="footer__link" href="mailto:hello@momobakehouse.com">hello@momobakehouse.com</a></li>
+            <li><a class="footer__link" href="tel:+84901234567">+84 90 123 4567</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span class="footer__copy">&copy; 2026 Momo Bakehouse. All rights reserved.</span>
+        <div class="footer__legal">
+          <a href="#">Terms of Service</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Order Modal -->
+  <div class="modal-overlay" data-modal="order">
+    <div class="modal">
+      <button class="modal__close" data-modal-close aria-label="Close">&times;</button>
+      <div class="modal__body">
+        <div class="modal__tag">Order</div>
+        <h2 class="modal__title">Order a Cake</h2>
+        <p class="modal__desc">Fill out the form and we'll get back to you with confirmation within 24 hours.</p>
+        <form class="order-form" data-order-form>
+          <div class="order-form__field">
+            <label class="order-form__label">Full Name <span class="req">*</span></label>
+            <input class="order-form__input" type="text" placeholder="Your full name" required>
+          </div>
+          <div class="order-form__field">
+            <label class="order-form__label">Phone <span class="req">*</span></label>
+            <input class="order-form__input" type="tel" placeholder="+84 ..." required>
+          </div>
+          <div class="order-form__field">
+            <label class="order-form__label">Email</label>
+            <input class="order-form__input" type="email" placeholder="you@example.com">
+          </div>
+          <div class="order-form__field">
+            <label class="order-form__label">Pickup Date <span class="req">*</span></label>
+            <input class="order-form__input" type="date" required>
+          </div>
+          <div class="order-form__field">
+            <label class="order-form__label">Cakes / Dessert <span class="req">*</span></label>
+            <select class="order-form__select" required>
+              <option value="" disabled selected>&mdash;</option>
+              <option>Chocolate Lava Cake</option>
+              <option>Strawberry Cream Cake</option>
+              <option>Classic Birthday Cake</option>
+              <option>Butter Croissant</option>
+              <option>Almond Croissant</option>
+              <option>Lemon Tart</option>
+              <option>Sourdough Loaf</option>
+              <option>Hokkaido Milk Bread</option>
+              <option>Cinnamon Raisin Swirl</option>
+              <option>Matcha Latte</option>
+              <option>House Coffee</option>
+              <option>Cappuccino</option>
+            </select>
+          </div>
+          <div class="order-form__field">
+            <label class="order-form__label">Quantity</label>
+            <input class="order-form__input" type="number" value="1" min="1" max="50">
+          </div>
+          <div class="order-form__field order-form__field--full">
+            <label class="order-form__label">Note (Allergens, Special Requests, Flavours...)</label>
+            <textarea class="order-form__textarea" placeholder="Any special requests..."></textarea>
+          </div>
+          <div class="order-form__submit">
+            <button class="btn-dark" type="submit">Place Order</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Detail Modal -->
+  <div class="modal-overlay" data-modal="product">
+    <div class="modal modal--product">
+      <button class="modal__close" data-modal-close aria-label="Close">&times;</button>
+      <div class="modal__body">
+        <img class="product-modal__img" src="" alt="">
+        <div class="product-modal__content">
+          <div class="product-modal__badge"></div>
+          <h2 class="product-modal__name"></h2>
+          <p class="product-modal__desc"></p>
+          <div class="product-modal__price"></div>
+          <div class="product-modal__actions">
+            <button class="btn-dark" data-action="order-this">Order This</button>
+            <button class="btn-outline" data-modal-close>Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Momo AI Floating Button -->
+  <button class="momo-fab" aria-label="Meet Momo AI" data-momo-fab>
+    <img src="momo-peach.webp" alt="Momo AI">
+    <span class="momo-fab__sparkle momo-fab__sparkle--1"><svg viewBox="0 0 24 24" fill="#FFD700"><path d="M12 0l2.5 8.5L23 12l-8.5 2.5L12 23l-2.5-8.5L1 12l8.5-2.5z"/></svg></span>
+    <span class="momo-fab__sparkle momo-fab__sparkle--2"><svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 0l2.5 8.5L23 12l-8.5 2.5L12 23l-2.5-8.5L1 12l8.5-2.5z"/></svg></span>
+    <span class="momo-fab__sparkle momo-fab__sparkle--3"><svg viewBox="0 0 24 24" fill="#FFD700"><path d="M12 0l2.5 8.5L23 12l-8.5 2.5L12 23l-2.5-8.5L1 12l8.5-2.5z"/></svg></span>
+    <span class="momo-fab__sparkle momo-fab__sparkle--4"><svg viewBox="0 0 24 24" fill="#FFAB40"><path d="M12 0l2.5 8.5L23 12l-8.5 2.5L12 23l-2.5-8.5L1 12l8.5-2.5z"/></svg></span>
+    <span class="momo-fab__sparkle momo-fab__sparkle--5"><svg viewBox="0 0 24 24" fill="#FFC107"><path d="M12 0l2.5 8.5L23 12l-8.5 2.5L12 23l-2.5-8.5L1 12l8.5-2.5z"/></svg></span>
+  </button>
+
+  <!-- Momo AI Chat Panel -->
+  <div class="momo-popup-overlay" data-momo-overlay>
+    <div class="momo-chat">
+      <!-- Header -->
+      <div class="momo-chat__header">
+        <img class="momo-chat__avatar" src="momo-peach.webp" alt="Momo AI">
+        <div class="momo-chat__header-info">
+          <div class="momo-chat__header-name">Momo AI</div>
+          <div class="momo-chat__header-status">Online</div>
+        </div>
+        <button class="momo-chat__close" data-momo-close aria-label="Close">&times;</button>
+      </div>
+
+      <!-- Messages -->
+      <div class="momo-chat__messages" data-momo-messages>
+        <div class="momo-chat__welcome">
+          <div class="momo-chat__welcome-title">Meet Momo AI</div>
+          <div class="momo-chat__welcome-sub">Your little bakery companion.<br>Ask me anything about our cakes, pastries, workshops, or just say hi!</div>
+        </div>
+        <div class="momo-chat__suggestions" data-momo-suggestions>
+          <button class="momo-chip" data-prompt="Find a birthday cake">&#127874; Find a birthday cake</button>
+          <button class="momo-chip" data-prompt="What goes well with coffee?">&#9749; What goes well with coffee?</button>
+          <button class="momo-chip" data-prompt="I need a gift">&#127873; I need a gift</button>
+          <button class="momo-chip" data-prompt="Tell me about the mooncake workshop">&#127769; Mooncake workshop</button>
+          <button class="momo-chip" data-prompt="What's your signature cake?">&#127856; Signature cake?</button>
+        </div>
+      </div>
+
+      <!-- Input -->
+      <div class="momo-chat__input-bar">
+        <input class="momo-chat__input" type="text" placeholder="Ask Momo anything..." data-momo-input>
+        <button class="momo-chat__send" data-momo-send aria-label="Send">
+          <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/></svg>
+        </button>
+      </div>
+      <div class="momo-chat__powered">Powered by Momo AI &middot; Momo Bakehouse</div>
+    </div>
+  </div>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+<script>
+  // Helper: open / close modals
+  function openModal(name) {
+    const overlay = document.querySelector(`[data-modal="${name}"]`);
+    if (overlay) overlay.classList.add('open');
+  }
+  function closeModal(name) {
+    const overlay = document.querySelector(`[data-modal="${name}"]`);
+    if (overlay) overlay.classList.remove('open');
+  }
+  function closeAllModals() {
+    document.querySelectorAll('.modal-overlay').forEach(o => o.classList.remove('open'));
+  }
+
+  // ===== Master click handler =====
+  document.addEventListener('click', e => {
+
+    // --- Modal close ---
+    const closeBtn = e.target.closest('[data-modal-close]');
+    if (closeBtn) {
+      e.preventDefault();
+      closeAllModals();
+      return;
+    }
+
+    // --- Click backdrop to close ---
+    if (e.target.classList.contains('modal-overlay')) {
+      closeAllModals();
+      return;
+    }
+
+    // --- Open order modal ---
+    const orderTrigger = e.target.closest('[data-open-order]');
+    if (orderTrigger) {
+      e.preventDefault();
+      openModal('order');
+      return;
+    }
+
+    // --- "Order This" from product modal -> switch to order modal + pre-select ---
+    const orderThisBtn = e.target.closest('[data-action="order-this"]');
+    if (orderThisBtn) {
+      e.preventDefault();
+      const productName = document.querySelector('.product-modal__name')?.textContent;
+      closeModal('product');
+      openModal('order');
+      if (productName) {
+        const select = document.querySelector('.order-form__select');
+        if (select) {
+          for (const opt of select.options) {
+            if (opt.text === productName) { select.value = opt.value; break; }
+          }
+        }
+      }
+      return;
+    }
+
+    // --- Open product detail modal ---
+    const productCard = e.target.closest('[data-open-product]');
+    if (productCard) {
+      e.preventDefault();
+      const img = productCard.querySelector('img');
+      const name = productCard.querySelector('.sig-card__name, .menu-tile__name');
+      const sig = productCard.querySelector('.sig-card__sig, .menu-tile__sig');
+      const desc = productCard.querySelector('.sig-card__desc, .menu-tile__desc');
+      const price = productCard.querySelector('.sig-card__price, .menu-tile__price');
+
+      const modal = document.querySelector('[data-modal="product"]');
+      if (modal) {
+        modal.querySelector('.product-modal__img').src = img ? img.src : '';
+        modal.querySelector('.product-modal__img').alt = img ? img.alt : '';
+        modal.querySelector('.product-modal__name').textContent = name ? name.textContent : '';
+        modal.querySelector('.product-modal__badge').textContent = sig ? sig.textContent : '';
+        modal.querySelector('.product-modal__desc').textContent = desc ? desc.textContent : 'A delicious handmade treat from Momo Bakehouse.';
+        modal.querySelector('.product-modal__price').textContent = price ? price.textContent : '';
+      }
+      openModal('product');
+      return;
+    }
+
+    // --- Screen navigation ---
+    const navEl = e.target.closest('[data-nav]');
+    if (!navEl) return;
+    if (navEl.getAttribute('href')) return;
+
+    e.preventDefault();
+    const target = navEl.dataset.nav;
+
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    const targetScreen = document.querySelector(`[data-screen="${target}"]`);
+    if (targetScreen) targetScreen.classList.add('active');
+
+    document.querySelectorAll('.nav__link').forEach(link => {
+      const isActive = link.dataset.nav === target;
+      link.classList.toggle('active', isActive);
+      if (isActive) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // ===== Scroll to Top =====
+  const scrollBtn = document.querySelector('.scroll-top');
+  if (scrollBtn) {
+    window.addEventListener('scroll', () => {
+      scrollBtn.classList.toggle('visible', window.scrollY > 300);
+    });
+    scrollBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // ===== Event Filter Tabs =====
+  document.querySelectorAll('.event-filters').forEach(filterBar => {
+    filterBar.addEventListener('click', e => {
+      const btn = e.target.closest('.event-filter-btn');
+      if (!btn) return;
+      const category = btn.dataset.filter;
+      const container = filterBar.closest('.events-section__container');
+      filterBar.querySelectorAll('.event-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      container.querySelectorAll('.event-card').forEach(card => {
+        card.classList.toggle('hidden', category !== 'all' && card.dataset.category !== category);
+      });
+    });
+  });
+
+  // ===== Order Form =====
+  document.querySelectorAll('[data-order-form]').forEach(form => {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      const originalText = btn.textContent;
+      btn.textContent = 'Order Placed!';
+      btn.style.background = 'var(--color-yellow-700)';
+      form.reset();
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.style.background = '';
+        closeAllModals();
+      }, 2000);
+    });
+  });
+
+  // ===== Momo AI Chat =====
+  const momoFab = document.querySelector('[data-momo-fab]');
+  const momoOverlay = document.querySelector('[data-momo-overlay]');
+  const momoMessages = document.querySelector('[data-momo-messages]');
+  const momoInput = document.querySelector('[data-momo-input]');
+  const momoSend = document.querySelector('[data-momo-send]');
+  const momoSuggestions = document.querySelector('[data-momo-suggestions]');
+
+  // Scripted responses
+  const momoResponses = {
+    'find a birthday cake': "We have three beautiful birthday cakes! 🎂\n\n• **Chocolate Lava Cake** — warm molten center, 185,000 VND\n• **Strawberry Cream Cake** — our most popular, light sponge with fresh strawberries, 320,000 VND\n• **Classic Birthday Cake** — vanilla buttercream with seasonal flowers, 280,000 VND\n\nAll cakes are baked to order. Would you like to place an order?",
+    "what goes well with coffee?": "Great question! ☕ Here are my top picks:\n\n• **Butter Croissant** — 72-hour fermented, impossibly flaky (55,000 VND)\n• **Almond Croissant** — filled with frangipane, dusted with powdered sugar (65,000 VND)\n• **Lemon Tart** — tangy curd with torched meringue (75,000 VND)\n\nOr try our **Matcha Latte** if you want something different!",
+    'i need a gift': "Here are some lovely gift ideas! 🎁\n\n• **Pastry Box** — a curated selection of our croissants and tarts\n• **Celebration Cake** — we can personalize with a message and seasonal flowers\n• **Workshop Voucher** — give the experience of baking! Our Mooncake Workshop is coming up Sep 14\n\nWould you like to order a gift box?",
+    'tell me about the mooncake workshop': "Our **Mid-Autumn Mooncake Workshop** is coming up! 🌙\n\n📅 **Date:** September 14, 2026\n💰 **Price:** 650,000 VND\n⏱ **Duration:** ~3 hours\n\nYou'll learn to make traditional mooncakes from scratch — mixing the dough, preparing fillings, and shaping. You take home a box of your own creations!\n\nSpots fill up fast. Want me to help you book?",
+    "what's your signature cake?": "Our signature is the **Chocolate Lava Cake** 🍰\n\nWarm, molten dark chocolate center with a rich shell, served with a scoop of vanilla bean ice cream. It's been on our menu since day one and it's still the most loved.\n\n**Price:** 185,000 VND\n\nOther signatures include our Butter Croissant, Sourdough Loaf, Lemon Tart, and Matcha Latte!"
+  };
+
+  const momoFallbacks = [
+    "That's a great question! 😊 I'd suggest visiting us at our bakehouse in District 3 — our team can help you with that in person. Or you can call us at +84 90 123 4567!",
+    "Hmm, I'm not quite sure about that one! 🤔 But I can help you with our menu, birthday cakes, workshops, or gift ideas. What sounds good?",
+    "I love your curiosity! 🍑 While I'm still learning, I can definitely help you explore our cakes, pastries, bread, and upcoming workshops. What are you in the mood for?",
+    "Thanks for asking! I'm best at helping with our menu, ordering cakes, and workshops. Would you like to know about any of those?"
+  ];
+
+  let momoFallbackIdx = 0;
+
+  function momoAddMessage(text, isUser) {
+    const div = document.createElement('div');
+    div.className = `momo-msg momo-msg--${isUser ? 'user' : 'bot'}`;
+    const formatted = isUser ? text : text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+    div.innerHTML = isUser
+      ? `<div class="momo-msg__bubble">${formatted}</div>`
+      : `<img class="momo-msg__avatar" src="momo-peach.webp" alt="Momo"><div class="momo-msg__bubble">${formatted}</div>`;
+    momoMessages.appendChild(div);
+    momoMessages.scrollTop = momoMessages.scrollHeight;
+  }
+
+  function momoShowTyping() {
+    const div = document.createElement('div');
+    div.className = 'momo-typing';
+    div.setAttribute('data-typing', '');
+    div.innerHTML = `<img class="momo-msg__avatar" src="momo-peach.webp" alt="Momo"><div class="momo-typing__dots"><span class="momo-typing__dot"></span><span class="momo-typing__dot"></span><span class="momo-typing__dot"></span></div>`;
+    momoMessages.appendChild(div);
+    momoMessages.scrollTop = momoMessages.scrollHeight;
+  }
+
+  function momoRemoveTyping() {
+    const t = momoMessages.querySelector('[data-typing]');
+    if (t) t.remove();
+  }
+
+  function momoGetResponse(query) {
+    const q = query.toLowerCase().replace(/[?!.,]/g, '').trim();
+    for (const [key, val] of Object.entries(momoResponses)) {
+      if (q.includes(key) || key.includes(q)) return val;
+    }
+    if (q.includes('cake') || q.includes('birthday')) return momoResponses['find a birthday cake'];
+    if (q.includes('coffee') || q.includes('croissant') || q.includes('pastry')) return momoResponses['what goes well with coffee?'];
+    if (q.includes('gift') || q.includes('present')) return momoResponses['i need a gift'];
+    if (q.includes('mooncake') || q.includes('workshop') || q.includes('event')) return momoResponses['tell me about the mooncake workshop'];
+    if (q.includes('signature') || q.includes('popular') || q.includes('best') || q.includes('recommend')) return momoResponses["what's your signature cake?"];
+    if (q.includes('hello') || q.includes('hi') || q.includes('hey')) return "Hi there! 👋🍑 I'm Momo, your bakery companion. I can help you find cakes, pastries, or book a workshop. What are you looking for today?";
+    if (q.includes('menu') || q.includes('what do you have') || q.includes('what do you sell')) return "We have so much to choose from! 🍞\n\n• **Celebration Cakes** — Chocolate Lava, Strawberry Cream, Classic Birthday\n• **Pastries** — Butter Croissant, Almond Croissant, Lemon Tart\n• **Bread** — Sourdough Loaf, Hokkaido Milk Bread, Cinnamon Raisin Swirl\n• **Drinks** — House Coffee, Matcha Latte, Cappuccino\n\nEverything is baked fresh daily!";
+    if (q.includes('hour') || q.includes('open') || q.includes('time') || q.includes('when')) return "We're open every day! 🕐\n\n• **Mon–Fri:** 7:00 AM – 7:00 PM\n• **Sat–Sun:** 8:00 AM – 8:00 PM\n\nWe're located at 45 Nguyen Dinh Chieu, District 3, Saigon. Come say hi!";
+    if (q.includes('address') || q.includes('where') || q.includes('location') || q.includes('direction')) return "You can find us here! 📍\n\n**45 Nguyen Dinh Chieu, Ward 6, District 3, Ho Chi Minh City**\n\nLook for the smell of fresh bread down the alley 😄\nPhone: +84 90 123 4567";
+    if (q.includes('price') || q.includes('cost') || q.includes('how much')) return "Here are our prices! 💰\n\n• Celebration Cakes: 185,000 – 320,000 VND\n• Pastries: 55,000 – 75,000 VND\n• Bread: 75,000 – 95,000 VND\n• Drinks: 55,000 – 65,000 VND\n\nWant details on something specific?";
+    const resp = momoFallbacks[momoFallbackIdx % momoFallbacks.length];
+    momoFallbackIdx++;
+    return resp;
+  }
+
+  function momoHandleSend(text) {
+    if (!text.trim()) return;
+    // Hide welcome & suggestions on first message
+    const welcome = momoMessages.querySelector('.momo-chat__welcome');
+    if (welcome) welcome.style.display = 'none';
+    if (momoSuggestions) momoSuggestions.style.display = 'none';
+
+    momoAddMessage(text, true);
+    momoInput.value = '';
+    momoInput.focus();
+
+    // Show typing then respond
+    setTimeout(() => {
+      momoShowTyping();
+      const delay = 800 + Math.random() * 1200;
+      setTimeout(() => {
+        momoRemoveTyping();
+        momoAddMessage(momoGetResponse(text), false);
+      }, delay);
+    }, 300);
+  }
+
+  if (momoFab && momoOverlay) {
+    momoFab.addEventListener('click', () => {
+      momoOverlay.classList.add('open');
+      setTimeout(() => momoInput?.focus(), 350);
+    });
+    momoOverlay.querySelector('[data-momo-close]').addEventListener('click', () => momoOverlay.classList.remove('open'));
+    momoOverlay.addEventListener('click', e => { if (e.target === momoOverlay) momoOverlay.classList.remove('open'); });
+
+    momoSend.addEventListener('click', () => momoHandleSend(momoInput.value));
+    momoInput.addEventListener('keydown', e => { if (e.key === 'Enter') momoHandleSend(momoInput.value); });
+
+    momoOverlay.querySelectorAll('.momo-chip').forEach(chip => {
+      chip.addEventListener('click', () => momoHandleSend(chip.dataset.prompt));
+    });
+  }
+
+  // Close modals on Escape key
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeAllModals(); if (momoOverlay) momoOverlay.classList.remove('open'); }
+  });
+
+  // Map iframe fallback
+  document.querySelectorAll('.visit__map-col iframe').forEach(iframe => {
+    iframe.addEventListener('error', () => {
+      iframe.style.display = 'none';
+      const ph = iframe.parentElement.querySelector('.visit__map-placeholder');
+      if (ph) ph.style.display = 'block';
+    });
+  });
+  setTimeout(() => {
+    document.querySelectorAll('.visit__map-col').forEach(col => {
+      const iframe = col.querySelector('iframe');
+      const ph = col.querySelector('.visit__map-placeholder');
+      if (iframe && ph) {
+        try {
+          if (!iframe.contentDocument && !iframe.contentWindow) {
+            iframe.style.display = 'none';
+            ph.style.display = 'block';
+          }
+        } catch(e) {}
+      }
+    });
+  }, 2000);
+</script>
+
+</body>
+</html>

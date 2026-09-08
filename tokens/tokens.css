@@ -1,0 +1,70 @@
+/* Momo Bakehouse — Design Tokens */
+/* Palette: yellowish, brown, white. No pink. */
+
+:root {
+  /* Colors */
+  --color-white: #FFFFFF;
+  --color-cream: #FFFAF3;
+  --color-warm: #FFF3E0;
+  --color-yellow-100: #FFF8E1;
+  --color-yellow-200: #FFECB3;
+  --color-yellow-400: #F5D67B;
+  --color-yellow-600: #D4A843;
+  --color-yellow-700: #B8912E;
+  --color-brown-100: #F0EAE4;
+  --color-brown-200: #E0D5CB;
+  --color-brown-300: #C4B09C;
+  --color-brown-400: #A08070;
+  --color-brown-600: #6B5040;
+  --color-brown-800: #4A3528;
+  --color-brown-900: #3A2A1E;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-30: 120px;
+
+  /* Radius — round shapes */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-pill: 9999px;
+  --radius-circle: 50%;
+
+  /* Typography */
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'DM Sans', Arial, sans-serif;
+
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-md: 18px;
+  --text-lg: 20px;
+  --text-xl: 24px;
+  --text-2xl: 32px;
+  --text-3xl: 40px;
+  --text-4xl: 48px;
+  --text-5xl: 56px;
+
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  --leading-tight: 1.2;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(58,42,30,0.06);
+  --shadow-md: 0 4px 16px rgba(58,42,30,0.08);
+  --shadow-lg: 0 8px 32px rgba(58,42,30,0.1);
+}

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Momo Bakehouse — Review</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', Arial, sans-serif;
+      background: #1a1a1a;
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ===== Toolbar ===== */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #2a2a2a;
+      border-bottom: 1px solid #333;
+      padding: 0 16px;
+      flex-shrink: 0;
+    }
+
+    .tab-group {
+      display: flex;
+      flex: 1;
+    }
+
+    .tab {
+      padding: 12px 24px;
+      font-size: 14px;
+      color: #888;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      text-decoration: none;
+      user-select: none;
+    }
+    .tab:hover { color: #ccc; }
+    .tab.active {
+      color: #fff;
+      border-bottom-color: #D4A574;
+    }
+
+    .toolbar__controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toolbar__divider {
+      width: 1px;
+      height: 24px;
+      background: #444;
+      margin: 0 4px;
+    }
+
+    .ctrl-btn {
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #999;
+      background: transparent;
+      border: 1px solid #444;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .ctrl-btn:hover {
+      color: #fff;
+      border-color: #666;
+      background: #333;
+    }
+    .ctrl-btn.active {
+      color: #fff;
+      border-color: #D4A574;
+      background: rgba(212, 165, 116, 0.15);
+    }
+
+    .viewport-group {
+      display: flex;
+      gap: 2px;
+      background: #222;
+      border-radius: 6px;
+      padding: 2px;
+    }
+    .viewport-btn {
+      padding: 5px 12px;
+      font-size: 11px;
+      font-weight: 500;
+      color: #888;
+      background: transparent;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .viewport-btn:hover { color: #ccc; }
+    .viewport-btn.active {
+      color: #fff;
+      background: #444;
+    }
+
+    .viewport-label {
+      font-size: 11px;
+      color: #666;
+      padding: 0 8px;
+      white-space: nowrap;
+    }
+
+    /* ===== Content Area ===== */
+    .tab-content {
+      flex: 1;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .tab-panel {
+      display: none;
+      width: 100%;
+      height: 100%;
+    }
+    .tab-panel.active {
+      display: flex;
+    }
+
+    /* Single iframe mode */
+    .tab-panel.mode-single iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      transition: max-width 0.3s ease;
+    }
+    .tab-panel.mode-single {
+      justify-content: center;
+      background: #111;
+    }
+    .tab-panel.mode-single iframe.viewport-tablet {
+      max-width: 768px;
+    }
+    .tab-panel.mode-single iframe.viewport-mobile {
+      max-width: 375px;
+    }
+
+    /* Side-by-side mode */
+    .tab-panel.mode-split {
+      gap: 0;
+    }
+    .tab-panel.mode-split iframe {
+      height: 100%;
+      border: none;
+      flex: 1;
+      min-width: 0;
+    }
+    .tab-panel.mode-split iframe + iframe {
+      border-left: 2px solid #333;
+    }
+
+    /* Split panels container */
+    .split-view {
+      display: none;
+      width: 100%;
+      height: 100%;
+    }
+    .split-view.active {
+      display: flex;
+    }
+    .split-view iframe {
+      flex: 1;
+      height: 100%;
+      border: none;
+      min-width: 0;
+    }
+    .split-view iframe + iframe {
+      border-left: 2px solid #333;
+    }
+    .split-view .split-label {
+      position: absolute;
+      top: 8px;
+      background: rgba(0,0,0,0.7);
+      color: #aaa;
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 4px;
+      pointer-events: none;
+      z-index: 10;
+    }
+    .split-pane {
+      flex: 1;
+      position: relative;
+      min-width: 0;
+    }
+    .split-pane iframe {
+      width: 100%;
+      flex: none;
+    }
+    .split-pane + .split-pane {
+      border-left: 2px solid #333;
+    }
+    .split-pane .split-label {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Theme toggle indicator */
+    .theme-indicator {
+      font-size: 14px;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <div class="tab-group">
+      <a class="tab active" data-tab="landing" href="#">Landing Page</a>
+      <a class="tab" data-tab="design-system" href="#">Design System</a>
+    </div>
+
+    <div class="toolbar__controls">
+      <!-- Viewport switcher -->
+      <div class="viewport-group">
+        <button class="viewport-btn active" data-viewport="desktop" title="Desktop 1440px">Desktop</button>
+        <button class="viewport-btn" data-viewport="tablet" title="Tablet 768px">Tablet</button>
+        <button class="viewport-btn" data-viewport="mobile" title="Mobile 375px">Mobile</button>
+      </div>
+      <span class="viewport-label">1440px</span>
+
+      <div class="toolbar__divider"></div>
+
+      <!-- Side-by-side -->
+      <button class="ctrl-btn" id="splitToggle">Side by Side</button>
+
+      <div class="toolbar__divider"></div>
+
+      <!-- Dark/Light mode -->
+      <button class="ctrl-btn" id="themeToggle"><span class="theme-indicator">&#9788;</span> Light</button>
+    </div>
+  </div>
+
+  <div class="tab-content">
+    <!-- Single tab panels -->
+    <div class="tab-panel mode-single active" id="landing">
+      <iframe src="landing.html" loading="lazy"></iframe>
+    </div>
+    <div class="tab-panel mode-single" id="design-system">
+      <iframe src="design-system.html" loading="lazy"></iframe>
+    </div>
+
+    <!-- Split view -->
+    <div class="split-view" id="splitView">
+      <div class="split-pane">
+        <span class="split-label">Landing Page</span>
+        <iframe src="landing.html" loading="lazy"></iframe>
+      </div>
+      <div class="split-pane">
+        <span class="split-label">Design System</span>
+        <iframe src="design-system.html" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab');
+    const panels = document.querySelectorAll('.tab-panel');
+    const splitView = document.getElementById('splitView');
+    const splitToggle = document.getElementById('splitToggle');
+    const themeToggle = document.getElementById('themeToggle');
+    const viewportBtns = document.querySelectorAll('.viewport-btn');
+    const viewportLabel = document.querySelector('.viewport-label');
+    let isSplit = false;
+    let isDark = true;
+
+    const viewportWidths = { desktop: '1440px', tablet: '768px', mobile: '375px' };
+
+    // Tab switching
+    tabs.forEach(tab => {
+      tab.addEventListener('click', e => {
+        e.preventDefault();
+        if (isSplit) return; // tabs disabled in split mode
+        tabs.forEach(t => t.classList.remove('active'));
+        panels.forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab).classList.add('active');
+      });
+    });
+
+    // Viewport switching
+    viewportBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        viewportBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const vp = btn.dataset.viewport;
+        viewportLabel.textContent = viewportWidths[vp];
+
+        // Apply to all visible iframes
+        document.querySelectorAll('.tab-panel.mode-single iframe').forEach(iframe => {
+          iframe.classList.remove('viewport-tablet', 'viewport-mobile');
+          if (vp === 'tablet') iframe.classList.add('viewport-tablet');
+          if (vp === 'mobile') iframe.classList.add('viewport-mobile');
+        });
+      });
+    });
+
+    // Split toggle
+    splitToggle.addEventListener('click', () => {
+      isSplit = !isSplit;
+      splitToggle.classList.toggle('active', isSplit);
+
+      if (isSplit) {
+        panels.forEach(p => p.classList.remove('active'));
+        splitView.classList.add('active');
+        tabs.forEach(t => { t.style.opacity = '0.4'; t.style.pointerEvents = 'none'; });
+      } else {
+        splitView.classList.remove('active');
+        // Restore active tab
+        const activeTab = document.querySelector('.tab.active') || tabs[0];
+        document.getElementById(activeTab.dataset.tab).classList.add('active');
+        tabs.forEach(t => { t.style.opacity = ''; t.style.pointerEvents = ''; });
+      }
+    });
+
+    // Theme toggle
+    themeToggle.addEventListener('click', () => {
+      isDark = !isDark;
+      if (isDark) {
+        document.body.style.background = '#1a1a1a';
+        document.querySelector('.toolbar').style.background = '#2a2a2a';
+        themeToggle.innerHTML = '<span class="theme-indicator">&#9788;</span> Light';
+      } else {
+        document.body.style.background = '#f0f0f0';
+        document.querySelector('.toolbar').style.background = '#e8e8e8';
+        document.querySelector('.toolbar').style.borderBottomColor = '#ccc';
+        themeToggle.innerHTML = '<span class="theme-indicator">&#9790;</span> Dark';
+      }
+    });
+  </script>
+</body>
+</html>

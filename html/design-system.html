@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Momo Bakehouse — Design System</title>
+  <link rel="stylesheet" href="shared.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    body {
+      background: var(--color-white);
+      padding: var(--space-8);
+      font-family: var(--font-body);
+      color: var(--color-brown-900);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .ds-section {
+      margin-bottom: var(--space-20);
+    }
+    .ds-section__title {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      margin-bottom: var(--space-8);
+      padding-bottom: var(--space-4);
+      border-bottom: 1px solid var(--color-brown-100);
+    }
+    .ds-subsection {
+      margin-bottom: var(--space-12);
+    }
+    .ds-subsection__title {
+      font-family: var(--font-body);
+      font-size: var(--text-lg);
+      font-weight: var(--font-semibold);
+      margin-bottom: var(--space-6);
+      color: var(--color-brown-600);
+    }
+    .ds-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+      align-items: flex-start;
+      margin-bottom: var(--space-6);
+    }
+    .ds-swatch {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      align-items: center;
+      width: 100px;
+    }
+    .ds-swatch__color {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    .ds-swatch__name {
+      font-size: var(--text-xs);
+      font-weight: var(--font-semibold);
+    }
+    .ds-swatch__hex {
+      font-size: var(--text-xs);
+      color: var(--color-brown-400);
+    }
+    .ds-type-sample {
+      margin-bottom: var(--space-6);
+    }
+    .ds-type-label {
+      font-size: var(--text-xs);
+      color: var(--color-brown-400);
+      font-weight: var(--font-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: var(--space-2);
+    }
+    .ds-spacing-bar {
+      height: var(--space-6);
+      background: var(--color-pink-100);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      padding-left: var(--space-3);
+      font-size: var(--text-xs);
+      font-weight: var(--font-medium);
+      color: var(--color-pink-600);
+      margin-bottom: var(--space-2);
+    }
+    .ds-radius-sample {
+      width: 80px;
+      height: 80px;
+      background: var(--color-pink-100);
+      border: 2px solid var(--color-pink-400);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--text-xs);
+      font-weight: var(--font-semibold);
+      color: var(--color-pink-600);
+    }
+    .ds-shadow-sample {
+      width: 160px;
+      height: 80px;
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--text-xs);
+      font-weight: var(--font-semibold);
+      color: var(--color-brown-600);
+    }
+    .ds-icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: var(--space-4);
+    }
+    .ds-icon-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-4);
+      border-radius: var(--radius-md);
+      background: var(--color-cream);
+    }
+    .ds-icon-item i {
+      font-size: var(--text-xl);
+      color: var(--color-brown-900);
+    }
+    .ds-icon-item span {
+      font-size: var(--text-xs);
+      color: var(--color-brown-400);
+    }
+  </style>
+</head>
+<body>
+
+<h1 style="font-family: var(--font-display); font-size: var(--text-4xl); margin-bottom: var(--space-2);">Momo Bakehouse</h1>
+<p style="font-size: var(--text-md); color: var(--color-brown-600); margin-bottom: var(--space-16);">Design System & Component Library</p>
+
+<!-- ===== COLORS ===== -->
+<section class="ds-section">
+  <h2 class="ds-section__title">Colors</h2>
+
+  <div class="ds-subsection">
+    <h3 class="ds-subsection__title">Base</h3>
+    <div class="ds-row">
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background: var(--color-white);"></div>
+        <span class="ds-swatch__name">White</span>
+        <span class="ds-swatch__hex">#FFFFFF</span>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background: var(--color-cream);"></div>
+        <span class="ds-swatch__name">Cream</span>
+        <span class="ds-swatch__hex">#FFF9F0</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h3 class="ds-subsection__title">Pink</h3>
+    <div class="ds-row">
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background: var(--color-pink-100);"></div>
+        <span class="ds-swatch__name">Pink 100</span>
+        <span class="ds-swatch__hex">#FFF0F3</span>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background: var(--color-pink-200);"></div>
+        <span class="ds-swatch__name">Pink 200</span>
+        <span class="ds-swatch__hex">#FFD6DE</span>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background: var(--color-pink-400);"></div>
+        <span class="ds-swatch__name">Pink 400</span>
+        <span class="ds-swatch__hex">#E8889A</span>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background: var(--color-pink-600);"></div>
+        <span class="ds-swatch__name">Pink 600</span>
+        <span class="ds-swatch__hex">#D4637A</span>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background: var(--color-pink-700);"></div>
+        <span class="ds-swatch__name">Pink 700</span>
+        <span class="ds-swatch__hex">#B84D63</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h3 class="ds-subsection__title">Yellow</h3>
+    <div class="ds-row">
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background: var(--color-yellow-100);"></div>
+        <span class="ds-swatch__name">Yellow 100</span>
+        <span class="ds-swatch__hex">#FFF8E1</span>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background: var(--color-yellow-200);"></div>
+        <span class="ds-swatch__name">Yellow 200</span>
+        <span class="ds-swatch__hex">#FFECB3</span>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background: var(--color-yellow-400);"></div>
+        <span class="ds-swatch__name">Yellow 400</span>
+        <span class="ds-swatch__hex">#F5D67B</span>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background: var(--color-yellow-600);"></div>
+        <span class="ds-swatch__name">Yellow 600</span>
+        <span class="ds-swatch__hex">#D4A843</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h3 class="ds-subsection__title">Brown</h3>
+    <div class="ds-row">
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background: var(--color-brown-100);"></div>
+        <span class="ds-swatch__name">Brown 100</span>
+        <span class="ds-swatch__hex">#F5EDED</span>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background: var(--color-brown-400);"></div>
+        <span class="ds-swatch__name">Brown 400</span>
+        <span class="ds-swatch__hex">#9A8284</span>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background: var(--color-brown-600);"></div>
+        <span class="ds-swatch__name">Brown 600</span>
+        <span class="ds-swatch__hex">#6B5355</span>
+      </div>
+      <div class="ds-swatch">
+        <div class="ds-swatch__color" style="background: var(--color-brown-900);"></div>
+        <span class="ds-swatch__name">Brown 900</span>
+        <span class="ds-swatch__hex">#3D2C2E</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TYPOGRAPHY ===== -->
+<section class="ds-section">
+  <h2 class="ds-section__title">Typography</h2>
+
+  <div class="ds-subsection">
+    <h3 class="ds-subsection__title">Display — DM Serif Display</h3>
+    <div class="ds-type-sample">
+      <div class="ds-type-label">56px / 5xl</div>
+      <p style="font-family: var(--font-display); font-size: var(--text-5xl); line-height: var(--leading-tight);">A Little Something Sweet</p>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-label">48px / 4xl</div>
+      <p style="font-family: var(--font-display); font-size: var(--text-4xl); line-height: var(--leading-tight);">Made with Love</p>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-label">40px / 3xl</div>
+      <p style="font-family: var(--font-display); font-size: var(--text-3xl); line-height: var(--leading-tight);">Our Menu</p>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-label">32px / 2xl</div>
+      <p style="font-family: var(--font-display); font-size: var(--text-2xl); line-height: var(--leading-tight);">Meet Momo</p>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-label">24px / xl</div>
+      <p style="font-family: var(--font-display); font-size: var(--text-xl); line-height: var(--leading-tight);">Come Say Hi</p>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h3 class="ds-subsection__title">Body — DM Sans</h3>
+    <div class="ds-type-sample">
+      <div class="ds-type-label">20px / lg — Semibold</div>
+      <p style="font-size: var(--text-lg); font-weight: var(--font-semibold);">Momo Celebration Cakes</p>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-label">18px / md — Regular</div>
+      <p style="font-size: var(--text-md); color: var(--color-brown-600); line-height: var(--leading-relaxed);">Handmade cakes, pastries, bread, and cozy cups of tea & coffee — baked fresh for life's sweetest moments.</p>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-label">16px / base — Regular</div>
+      <p style="font-size: var(--text-base); color: var(--color-brown-600); line-height: var(--leading-relaxed);">We believe the best things in life are simple: warm bread straight from the oven, a perfectly frosted cake.</p>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-label">14px / sm — Medium</div>
+      <p style="font-size: var(--text-sm); font-weight: var(--font-medium); color: var(--color-brown-600);">Our Story &nbsp; Menu &nbsp; Events &nbsp; Visit Us</p>
+    </div>
+    <div class="ds-type-sample">
+      <div class="ds-type-label">12px / xs — Semibold (uppercase)</div>
+      <p style="font-size: var(--text-xs); font-weight: var(--font-semibold); text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-pink-600);">Welcome to Momo</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SPACING ===== -->
+<section class="ds-section">
+  <h2 class="ds-section__title">Spacing</h2>
+  <div class="ds-spacing-bar" style="width: 4px; min-width: 80px;">4px (space-1)</div>
+  <div class="ds-spacing-bar" style="width: 8px; min-width: 80px;">8px (space-2)</div>
+  <div class="ds-spacing-bar" style="width: 12px; min-width: 80px;">12px (space-3)</div>
+  <div class="ds-spacing-bar" style="width: 16px; min-width: 90px;">16px (space-4)</div>
+  <div class="ds-spacing-bar" style="width: 24px; min-width: 90px;">24px (space-6)</div>
+  <div class="ds-spacing-bar" style="width: 32px; min-width: 90px;">32px (space-8)</div>
+  <div class="ds-spacing-bar" style="width: 48px; min-width: 100px;">48px (space-12)</div>
+  <div class="ds-spacing-bar" style="width: 64px; min-width: 100px;">64px (space-16)</div>
+  <div class="ds-spacing-bar" style="width: 80px; min-width: 110px;">80px (space-20)</div>
+  <div class="ds-spacing-bar" style="width: 120px; min-width: 120px;">120px (space-30)</div>
+</section>
+
+<!-- ===== RADIUS ===== -->
+<section class="ds-section">
+  <h2 class="ds-section__title">Border Radius</h2>
+  <div class="ds-row">
+    <div class="ds-swatch">
+      <div class="ds-radius-sample" style="border-radius: var(--radius-sm);">4px</div>
+      <span class="ds-swatch__name">sm</span>
+    </div>
+    <div class="ds-swatch">
+      <div class="ds-radius-sample" style="border-radius: var(--radius-md);">8px</div>
+      <span class="ds-swatch__name">md</span>
+    </div>
+    <div class="ds-swatch">
+      <div class="ds-radius-sample" style="border-radius: var(--radius-lg);">12px</div>
+      <span class="ds-swatch__name">lg</span>
+    </div>
+    <div class="ds-swatch">
+      <div class="ds-radius-sample" style="border-radius: var(--radius-xl);">16px</div>
+      <span class="ds-swatch__name">xl</span>
+    </div>
+    <div class="ds-swatch">
+      <div class="ds-radius-sample" style="border-radius: var(--radius-pill); width: 120px;">pill</div>
+      <span class="ds-swatch__name">pill</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SHADOWS ===== -->
+<section class="ds-section">
+  <h2 class="ds-section__title">Shadows</h2>
+  <div class="ds-row">
+    <div class="ds-swatch" style="width: auto;">
+      <div class="ds-shadow-sample" style="box-shadow: var(--shadow-sm);">shadow-sm</div>
+    </div>
+    <div class="ds-swatch" style="width: auto;">
+      <div class="ds-shadow-sample" style="box-shadow: var(--shadow-md);">shadow-md</div>
+    </div>
+    <div class="ds-swatch" style="width: auto;">
+      <div class="ds-shadow-sample" style="box-shadow: var(--shadow-lg);">shadow-lg</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BUTTONS ===== -->
+<section class="ds-section">
+  <h2 class="ds-section__title">Buttons</h2>
+
+  <div class="ds-subsection">
+    <h3 class="ds-subsection__title">Primary</h3>
+    <div class="ds-row">
+      <a href="#" class="btn btn--primary">Order Now</a>
+      <a href="#" class="btn btn--primary btn--lg">Order Now <i data-lucide="arrow-right"></i></a>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h3 class="ds-subsection__title">Secondary</h3>
+    <div class="ds-row">
+      <a href="#" class="btn btn--secondary">Explore Menu</a>
+      <a href="#" class="btn btn--secondary btn--lg">Explore Menu <i data-lucide="arrow-right"></i></a>
+    </div>
+  </div>
+
+  <div class="ds-subsection">
+    <h3 class="ds-subsection__title">Ghost</h3>
+    <div class="ds-row">
+      <a href="#" class="btn btn--ghost">Learn More <i data-lucide="arrow-right"></i></a>
+      <a href="#" class="btn btn--ghost btn--lg">Our Full Story <i data-lucide="arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BADGES ===== -->
+<section class="ds-section">
+  <h2 class="ds-section__title">Badges</h2>
+  <div class="ds-row">
+    <span class="badge badge--signature">★ Momo Signature</span>
+    <span class="badge badge--pink">Featured Workshop</span>
+    <span class="star-badge">★</span>
+  </div>
+</section>
+
+<!-- ===== ICONS ===== -->
+<section class="ds-section">
+  <h2 class="ds-section__title">Icons (Lucide)</h2>
+  <div class="ds-icon-grid">
+    <div class="ds-icon-item"><i data-lucide="arrow-right"></i><span>arrow-right</span></div>
+    <div class="ds-icon-item"><i data-lucide="menu"></i><span>menu</span></div>
+    <div class="ds-icon-item"><i data-lucide="calendar"></i><span>calendar</span></div>
+    <div class="ds-icon-item"><i data-lucide="clock"></i><span>clock</span></div>
+    <div class="ds-icon-item"><i data-lucide="map-pin"></i><span>map-pin</span></div>
+    <div class="ds-icon-item"><i data-lucide="users"></i><span>users</span></div>
+    <div class="ds-icon-item"><i data-lucide="phone"></i><span>phone</span></div>
+    <div class="ds-icon-item"><i data-lucide="mail"></i><span>mail</span></div>
+    <div class="ds-icon-item"><i data-lucide="instagram"></i><span>instagram</span></div>
+    <div class="ds-icon-item"><i data-lucide="facebook"></i><span>facebook</span></div>
+    <div class="ds-icon-item"><i data-lucide="star"></i><span>star</span></div>
+    <div class="ds-icon-item"><i data-lucide="shopping-bag"></i><span>shopping-bag</span></div>
+  </div>
+</section>
+
+<!-- ===== PRODUCT CARD ===== -->
+<section class="ds-section">
+  <h2 class="ds-section__title">Product Card</h2>
+  <div style="display: grid; grid-template-columns: repeat(3, 280px); gap: var(--space-6);">
+    <div class="product-card" style="background: var(--color-white); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden;">
+      <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&q=80" alt="Strawberry Shortcake" style="width: 100%; aspect-ratio: 1/1; object-fit: cover;">
+      <div style="padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-2);">
+        <span style="font-weight: var(--font-semibold); display: flex; align-items: center; gap: var(--space-2);">Strawberry Shortcake <span class="star-badge">★</span></span>
+        <span style="font-size: var(--text-sm); color: var(--color-brown-600);">Fluffy sponge, fresh strawberries, whipped cream.</span>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: var(--space-2);">
+          <span style="font-size: var(--text-md); font-weight: var(--font-bold);">$38</span>
+          <a href="#" class="btn btn--secondary" style="font-size: var(--text-xs); padding: var(--space-2) var(--space-4);">Order <i data-lucide="arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="product-card" style="background: var(--color-white); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden;">
+      <img src="https://images.unsplash.com/photo-1509365390695-33aee754301f?w=600&q=80" alt="Croissant" style="width: 100%; aspect-ratio: 1/1; object-fit: cover;">
+      <div style="padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-2);">
+        <span style="font-weight: var(--font-semibold);">Butter Croissant</span>
+        <span style="font-size: var(--text-sm); color: var(--color-brown-600);">Flaky, buttery, golden layers of pure delight.</span>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: var(--space-2);">
+          <span style="font-size: var(--text-md); font-weight: var(--font-bold);">$5</span>
+          <a href="#" class="btn btn--secondary" style="font-size: var(--text-xs); padding: var(--space-2) var(--space-4);">Order <i data-lucide="arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="product-card" style="background: var(--color-white); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden;">
+      <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600&q=80" alt="Latte" style="width: 100%; aspect-ratio: 1/1; object-fit: cover;">
+      <div style="padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-2);">
+        <span style="font-weight: var(--font-semibold); display: flex; align-items: center; gap: var(--space-2);">Momo Latte <span class="star-badge">★</span></span>
+        <span style="font-size: var(--text-sm); color: var(--color-brown-600);">Vanilla and brown sugar signature latte.</span>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: var(--space-2);">
+          <span style="font-size: var(--text-md); font-weight: var(--font-bold);">$6</span>
+          <a href="#" class="btn btn--secondary" style="font-size: var(--text-xs); padding: var(--space-2) var(--space-4);">Order <i data-lucide="arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MENU CARD ===== -->
+<section class="ds-section">
+  <h2 class="ds-section__title">Menu Category Card</h2>
+  <div style="width: 400px;">
+    <div class="menu-card" style="background: var(--color-white); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden;">
+      <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80" alt="Cakes" style="width: 100%; aspect-ratio: 16/9; object-fit: cover;">
+      <div style="padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-3);">
+        <span style="font-size: var(--text-2xl);">🎂</span>
+        <h3 style="font-family: var(--font-display); font-size: var(--text-xl);">Momo Celebration Cakes</h3>
+        <p style="font-size: var(--text-sm); color: var(--color-brown-600); font-style: italic;">Birthday cakes & celebration cakes</p>
+        <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-1);">
+          <li style="font-size: var(--text-sm); color: var(--color-brown-600);">Strawberry Shortcake <span style="color: var(--color-yellow-600);">★</span></li>
+          <li style="font-size: var(--text-sm); color: var(--color-brown-600);">Momo Chocolate Cake</li>
+          <li style="font-size: var(--text-sm); color: var(--color-brown-600);">Vanilla Berry Cake</li>
+        </ul>
+        <a href="#" class="btn btn--ghost" style="align-self: flex-start; margin-top: var(--space-3);">See All <i data-lucide="arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EVENT CARD ===== -->
+<section class="ds-section">
+  <h2 class="ds-section__title">Event Card</h2>
+  <div style="width: 400px;">
+    <div class="event-card" style="background: var(--color-white); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden;">
+      <img src="https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?w=800&q=80" alt="Workshop" style="width: 100%; aspect-ratio: 16/9; object-fit: cover;">
+      <div style="padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-3);">
+        <span style="font-size: var(--text-sm); color: var(--color-brown-400);"><i data-lucide="calendar" style="font-size: var(--text-sm); color: var(--color-pink-400);"></i> Oct 12, 2026</span>
+        <h4 style="font-family: var(--font-display); font-size: var(--text-lg);">Mooncake Making Workshop</h4>
+        <p style="font-size: var(--text-sm); color: var(--color-brown-600);">Learn traditional mooncake making with our head baker.</p>
+        <a href="#" class="btn btn--ghost" style="align-self: flex-start; font-size: var(--text-sm);">Learn More <i data-lucide="arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION BACKGROUNDS ===== -->
+<section class="ds-section">
+  <h2 class="ds-section__title">Section Backgrounds</h2>
+  <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+    <div style="background: var(--color-white); padding: var(--space-8); border-radius: var(--radius-lg); border: 1px solid var(--color-brown-100);">
+      <span style="font-weight: var(--font-semibold);">White</span> — Hero alt, Signatures, Our Story, Visit Us
+    </div>
+    <div style="background: var(--color-cream); padding: var(--space-8); border-radius: var(--radius-lg);">
+      <span style="font-weight: var(--font-semibold);">Cream</span> — Hero, Menu, Events
+    </div>
+    <div style="background: var(--color-pink-100); padding: var(--space-8); border-radius: var(--radius-lg);">
+      <span style="font-weight: var(--font-semibold);">Pink 100</span> — Final CTA
+    </div>
+    <div style="background: var(--color-brown-900); padding: var(--space-8); border-radius: var(--radius-lg); color: var(--color-cream);">
+      <span style="font-weight: var(--font-semibold);">Brown 900</span> — Footer
+    </div>
+  </div>
+</section>
+
+<script>lucide.createIcons();</script>
+</body>
+</html>
